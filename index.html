@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fonts -->
+    <link rel="stylesheet" href="./style/font.css" />
+    <!-- normalize -->
+    <link rel="stylesheet" href="./style/normalize.css" />
+    <!-- general -->
+    <link rel="stylesheet" href="/style/style.css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <title>Vakansiya</title>
+  </head>
+
+  <body>
+    <!-- header section  -->
+    <article>
+      <img
+        src="images/header.png"
+        class="article-image"
+        height="150px"
+        alt="header images"
+      />
+      <div class="container">
+        <div class="header-container">
+          <a
+            href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwixvoXNxdiJAxUZC6IDHcpBGnUYABAAGgJsZQ&ae=2&aspm=1&co=1&ase=2&gclid=Cj0KCQiAlsy5BhDeARIsABRc6ZvYXoez9YWxpqxbsgfWkaabRfkK9kB8OUCCGZRSDi9k9Z6zYj0lID0aAmFLEALw_wcB&ohost=www.google.com&cid=CAESVuD2ujC1kYB_zpKULqZtDQTqcYFDeufbm06i-O-zydwIesRI7BmB44kyxPk0--XhAXf2Cz3ZCOYAcQT9QOXmKtoPBJIRgQUkqJyF62mn3zTBRJyAsIIZ&sig=AOD64_1nycUvtUMaAAz6sTGxc1BnV7_RXw&q&nis=4&adurl&ved=2ahUKEwj7t4HNxdiJAxWrKRAIHcRRLDIQ0Qx6BAgKEAE"
+            ><img
+              src="images/vacancy.png"
+              width="50px "
+              height="50px"
+              alt="vacancy"
+          /></a>
+          <h2>Vakansiya ma'lumotlarini kiriting!</h2>
+          <form id="jobForm">
+            <label>Logotip URL</label>
+            <input
+              type="text"
+              placeholder="Logotip URL manzilini kiriting"
+              name="logoUrl"
+            />
+
+            <label>Kompaniya nomi</label>
+            <input type="text" placeholder="Manage" />
+
+            <div class="checkbox-group">
+              <label><input type="checkbox" /> New</label>
+              <label><input type="checkbox" /> Middle</label>
+              <label><input type="checkbox" /> Senior</label>
+
+              <label><input type="checkbox" /> Featured</label>
+            </div>
+
+            <label>Lavozim</label>
+            <input type="text" placeholder="Fullstack Developer" />
+
+            <div class="list">
+              <select name="time">
+                <option value="">Vaqt</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Freelance">Freelance</option>
+              </select>
+              <select name="job-type">
+                <option value="">Ish turi</option>
+                <option value="Remote">Remote</option>
+                <option value="On-site">On-site</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+              <select name="location">
+                <option value="">Joylashuv</option>
+                <option value="Fergana">Fergana</option>
+                <option value="Toshkent">Toshkent</option>
+                <option value="Buxoro">Buxoro</option>
+                <option value="Andijon">Andijon</option>
+                <option value="Namangan">Namangan</option>
+                <option value="Navoiy">Navoiy</option>
+                <option value="Samarqand">Samarqand</option>
+              </select>
+              <select name="job-type">
+                <option value="">Ish haqi</option>
+                <option value="600$">600$</option>
+                <option value="1000$">1000$</option>
+                <option value="1500$">1500$</option>
+              </select>
+            </div>
+
+            <label>Ko'nikmalar</label>
+            <div class="skils-type">
+              <label><input type="checkbox" /> Fullstack</label>
+              <label><input type="checkbox" /> Midweight</label>
+              <label><input type="checkbox" /> DevOps</label>
+              <label><input type="checkbox" /> Data Science va AI</label>
+            </div>
+
+            <button type="submit">Saqlash</button>
+          </form>
+        </div>
+
+        <!-- card section  -->
+
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/photonsap.svg"
+                width="88"
+                height="88"
+                alt="photsnap images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Photosnap</h4>
+                <span class="span-new">NEW!</span>
+                <span class="span-feat">FEATURED</span>
+              </div>
+              <h4 class="card-title">Senior Frontend Developer</h4>
+              <div class="card-time">
+                <span>1d ago</span>
+                <span>• Full Time</span>
+                <span>• USA only</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Senior</span>
+              <span class="card-span">HTML</span>
+              <span class="card-span">CSS</span>
+              <span class="card-span">JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <!-- card -2 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/manage.svg"
+                width="88"
+                height="88"
+                alt="manage images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Manage</h4>
+                <span class="span-new">NEW!</span>
+                <span class="span-feat">FEATURED</span>
+              </div>
+              <h4 class="card-title">Fullstack Developer</h4>
+              <div class="card-time">
+                <span>1d ago</span>
+                <span>• Part Time</span>
+                <span>• Remote</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Fullstack</span>
+              <span class="card-span">Midweight</span>
+              <span class="card-span">Python</span>
+              <span class="card-span">React</span>
+            </div>
+          </div>
+        </div>
+        <!-- card -3 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/account.svg"
+                width="88"
+                height="88"
+                alt="account images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Account</h4>
+                <span class="span-new">NEW!</span>
+              </div>
+              <h4 class="card-title">Fullstack Developer</h4>
+              <div class="card-time">
+                <span>2d ago</span>
+                <span>• Part Time</span>
+                <span>• USA only</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">React</span>
+              <span class="card-span">Sass</span>
+              <span class="card-span">JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <!-- card -4 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/myHome.svg"
+                width="88"
+                height="88"
+                alt="myHome images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">MyHome</h4>
+              </div>
+              <h4 class="card-title">Junior Frontend Developer</h4>
+              <div class="card-time">
+                <span>5d ago</span>
+                <span>• Contract</span>
+                <span>• USA only</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">CSS</span>
+              <span class="card-span">JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <!-- card -5 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/loopStudios.svg"
+                width="88"
+                height="88"
+                alt="loopStudios images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Loop Studios</h4>
+              </div>
+              <h4 class="card-title">Software Engineer</h4>
+              <div class="card-time">
+                <span>1w ago</span>
+                <span>• Full Time</span>
+                <span>• Worldwide</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Fullstack</span>
+              <span class="card-span">Midweight</span>
+              <span class="card-span">JavaScript</span>
+              <span class="card-span">Sass</span>
+              <span class="card-span">Ruby</span>
+            </div>
+          </div>
+        </div>
+        <!-- card - 6 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/FaceIt.svg"
+                width="88"
+                height="88"
+                alt="FaceIt images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">FaceIt</h4>
+              </div>
+              <h4 class="card-title">Junior Backend Developer</h4>
+              <div class="card-time">
+                <span>2w ago</span>
+                <span>• Full Time</span>
+                <span>• UK only</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Backend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">Ruby</span>
+              <span class="card-span">RoR</span>
+            </div>
+          </div>
+        </div>
+        <!-- card - 7 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/Shortly.svg"
+                width="88"
+                height="88"
+                alt="Shortly images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Shortly</h4>
+              </div>
+              <h4 class="card-title">Junior Developer</h4>
+              <div class="card-time">
+                <span>2w ago</span>
+                <span>• Full Time</span>
+                <span>• Worldwide</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">HTML</span>
+              <span class="card-span">Sass</span>
+              <span class="card-span">JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <!-- card - 8 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/Insure.svg"
+                width="88"
+                height="88"
+                alt="Insure images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Insure</h4>
+              </div>
+              <h4 class="card-title">Junior Frontend Developer</h4>
+              <div class="card-time">
+                <span>2w ago</span>
+                <span>• Full Time</span>
+                <span>• USA only</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">Vue</span>
+              <span class="card-span">JavaScript</span>
+              <span class="card-span">Sass</span>
+            </div>
+          </div>
+        </div>
+        <!-- card - 9 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/Eyecam.svg"
+                width="88"
+                height="88"
+                alt="Eyecam images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">Eyecam Co.</h4>
+              </div>
+              <h4 class="card-title">Junior Frontend Developer</h4>
+              <div class="card-time">
+                <span>3w ago</span>
+                <span>• Full Time</span>
+                <span>• Worldwide</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Fullstack</span>
+              <span class="card-span">Midweight</span>
+              <span class="card-span">JavaScript</span>
+              <span class="card-span">Django</span>
+              <span class="card-span">Python</span>
+            </div>
+          </div>
+        </div>
+        <!-- card - 10 -->
+        <div class="cards">
+          <div class="card-section container">
+            <div class="card-image">
+              <img
+                src="./images/Filtercompany.svg"
+                width="88"
+                height="88"
+                alt="Eyecam images"
+              />
+            </div>
+            <div class="card-hero">
+              <div class="card__header">
+                <h4 class="company-name">The Air Filter Company</h4>
+              </div>
+              <h4 class="card-title">Front-end Dev</h4>
+              <div class="card-time">
+                <span>1mo  ago</span>
+                <span>• Part Time</span>
+                <span>• Worldwide</span>
+              </div>
+            </div>
+            <div class="card-type">
+              <span class="card-span">Frontend</span>
+              <span class="card-span">Junior</span>
+              <span class="card-span">React</span>
+              <span class="card-span">Sass</span>
+              <span class="card-span">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <script src="/js/script.js" type="module"></script>
+  </body>
+</html>
