@@ -17,12 +17,7 @@
   <body>
     <!-- header section  -->
     <article>
-      <img
-        src="images/header.png"
-        class="article-image"
-        height="150px"
-        alt="header images"
-      />
+      <img src="images/header.png" class="article-image" alt="header images" />
       <div class="container">
         <div class="header-container">
           <a
@@ -37,13 +32,13 @@
           <form id="jobForm">
             <label>Logotip URL</label>
             <input
+              id="logoUrl"
               type="text"
               placeholder="Logotip URL manzilini kiriting"
-              name="logoUrl"
             />
 
             <label>Kompaniya nomi</label>
-            <input type="text" placeholder="Manage" />
+            <input type="text" id="companyName" placeholder="Manage" />
 
             <div class="checkbox-group">
               <label><input type="checkbox" /> New</label>
@@ -54,22 +49,26 @@
             </div>
 
             <label>Lavozim</label>
-            <input type="text" placeholder="Fullstack Developer" />
+            <input
+              type="text"
+              id="position"
+              placeholder="Fullstack Developer"
+            />
 
             <div class="list">
-              <select name="time">
+              <select id="time" name="time">
                 <option value="">Vaqt</option>
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
                 <option value="Freelance">Freelance</option>
               </select>
-              <select name="job-type">
+              <select id="jobType" name="job-type">
                 <option value="">Ish turi</option>
                 <option value="Remote">Remote</option>
                 <option value="On-site">On-site</option>
                 <option value="Hybrid">Hybrid</option>
               </select>
-              <select name="location">
+              <select id="location" name="location">
                 <option value="">Joylashuv</option>
                 <option value="Fergana">Fergana</option>
                 <option value="Toshkent">Toshkent</option>
@@ -79,9 +78,9 @@
                 <option value="Navoiy">Navoiy</option>
                 <option value="Samarqand">Samarqand</option>
               </select>
-              <select name="job-type">
+              <select id="salary" name="job-type">
                 <option value="">Ish haqi</option>
-                <option value="600$">600$</option>
+                <option value="500$">500$</option>
                 <option value="1000$">1000$</option>
                 <option value="1500$">1500$</option>
               </select>
@@ -398,7 +397,7 @@
               </div>
               <h4 class="card-title">Front-end Dev</h4>
               <div class="card-time">
-                <span>1mo  ago</span>
+                <span>1mo ago</span>
                 <span>• Part Time</span>
                 <span>• Worldwide</span>
               </div>
