@@ -3,11 +3,11 @@ import bgImage from '../assets/images/bgImage.png';
 import shake from '../assets/images/shape.svg';
 import dark from '../assets/images/dark.svg';
 import brother from '../assets/images/brother.png';
-function Header() {
 
+function Header() {
     return (
         <div>
-            <header className="bg-slate-800 w-[85px] h-[730px] rounded-r-2xl rounded-t-2xl flex flex-col justify-between items-center">
+            <header className="bg-slate-800 fixed top-0 left-0 w-[85px] h-full rounded-r-2xl flex flex-col justify-between items-center z-50">
                 <div
                     className="w-[85px] h-[85px] bg-cover bg-center flex items-center justify-center cursor-pointer"
                     style={{ backgroundImage: `url(${bgImage})` }}

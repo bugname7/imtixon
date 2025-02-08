@@ -1,12 +1,7 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-const useThemeStore = create((set) => ({
-    darkMode: localStorage.getItem('theme') === 'dark',
-    toggleTheme: () => set((state) => {
-        const newTheme = !state.darkMode;
-        localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-        return { darkMode: newTheme };
-    }),
-}));
+const useTheme = create(
 
-export default useThemeStore;
+
+)
+export default useTheme
