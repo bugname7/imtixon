@@ -1,10 +1,15 @@
-import React from 'react'
-import MainLayouts from './layouts/MainLayouts'
+import React from 'react';
+import MainLayouts from './layouts/MainLayouts';
+import { DarkModeProvider } from './context/DarkLightMode.jsx';
 
 function App() {
   return (
-    <MainLayouts ></MainLayouts>
-  )
+    <DarkModeProvider>
+      <MainLayouts>
+        <h1 className="text-center mt-10">Bosh Sahifa</h1>
+      </MainLayouts>
+    </DarkModeProvider>
+  );
 }
 
-export default App
+export default App;
