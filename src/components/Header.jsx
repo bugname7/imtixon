@@ -10,17 +10,13 @@ function Header() {
     const { darkMode, toggleDarkMode } = useDarkMode();
 
     return (
-        <div>
+        <div className={`${darkMode ? 'bg-slate-900 ' : 'bg-slate-200 '} min-h-screen`}>
             <header
-                className={`md:fixed top-0 left-0 w-full lg:justify-between flex justify-between items-center md:flex-col md:w-[70px] md:rounded-t-xl md:rounded-r-xl md:h-screen ${darkMode ? 'bg-dark' : 'bg-light'
-                    }`}
-                style={{
-                    backgroundColor: darkMode ? 'rgba(30, 33, 57, 1)' : 'rgba(47, 49, 72, 1)',
-                }}
+                className={`md:fixed top-0 left-0 w-full lg:justify-between flex justify-between items-center md:flex-col md:w-[70px] md:rounded-t-xl md:rounded-r-xl md:h-screen 
+        ${darkMode ? 'bg-[rgba(30,33,57,1)]' : 'bg-[rgba(47,49,72,1)]'}`}
             >
                 <div
-                    className={`w-[70px] h-[70px] bg-cover flex justify-center items-center ${darkMode ? 'border-dark' : 'border-light'
-                        }`}
+                    className="w-[70px] h-[70px] bg-cover flex justify-center items-center"
                     style={{
                         backgroundImage: `url(${bgImage})`,
                         backgroundSize: 'cover',
@@ -34,18 +30,14 @@ function Header() {
                         <img src={darkMode ? dark : light} alt="Toggle image" />
                     </div>
 
-                    <div
-                        className={`p-4 border-l md:border-t md:border-l-0 lg:border-l-0 ${darkMode ? 'border-gray-500' : 'border-slate-600'
-                            }`}
-                    >
+                    <div className={`p-4 border-l md:border-t md:border-l-0 lg:border-l-0 ${darkMode ? 'border-gray-500' : 'border-slate-600'}`}>
                         <img src={brother} alt="brother image" className="cursor-pointer w-[35px] h-[35px]" />
                     </div>
-
-
-
                 </div>
             </header>
-
+            <div>
+                <h1 className={`pl-32 pt-20 ${darkMode ? 'text-white' : ''}`}>hello world </h1>
+            </div>
         </div>
     );
 }

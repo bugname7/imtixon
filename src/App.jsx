@@ -6,7 +6,7 @@ function App() {
   return (
     <DarkModeProvider>
       <MainLayouts>
-        <h1 className="text-center mt-10">Bosh Sahifa</h1>
+
       </MainLayouts>
     </DarkModeProvider>
   );
