@@ -17,29 +17,29 @@ function Home() {
 
     return (
         <div
-            className={`${bgClass} min-h-screen flex flex-col items-center justify-start pt-12 pl-6 pb-6 pr-6`}
+            className={`${bgClass} min-h-screen flex flex-col items-center justify-start pt-12 pl-6  pb-6 pr-6 `}
         >
             <div className="w-full max-w-4xl flex justify-between items-center mb-8">
                 <div>
                     <h1
                         className={`${darkMode ? "text-white" : "text-black"
-                            } text-3xl font-spartan font-bold text-gray-900`}
+                            } sm:text-3xl font-spartan font-bold text-gray-900 xl:text-2xl`}
                     >
                         Invoices
                     </h1>
                     <p
                         className={`${darkMode ? "text-slate-300" : ""
-                            } font-spartan font-medium text-slate-400`}
+                            } font-spartan font-medium text-slate-400 md:text-xs sm:text-xl`}
                     >
                         {filtereddata.length}  invoices
                     </p>
                 </div>
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-8 ">
                     <select
                         id="status"
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
-                        className={`${darkMode ? "bg-slate-950 text-white" : ""} font-spartan font-bold block w-[150px] bg-slate-200 text-gray-700  pr-0 focus:outline-none`}
+                        className={`${darkMode ? "bg-slate-950 text-white" : ""} font-spartan font-bold block  lg:w-[170px] md:w-[150px] bg-slate-200 text-gray-700  focus:outline-none`}
                     >
                         <option value="Filter by status" className="font-spartan font-bold">Filter by status</option>
                         <option value="Draft" className="font-spartan font-bold">Draft</option>
@@ -48,12 +48,11 @@ function Home() {
                     </select>
 
 
-                    <div className="flex gap-3 bg-purple-600 w-[100px] rounded-3xl p-2 cursor-pointer">
-                        <img src={new1} alt="New Invoice" />
-                        <h3 className="text-white font-spartan font-bold flex gap-2 text-center items-center">
-                            New
-                        </h3>
+                    <div className="flex items-center justify-center gap-2 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit max-w-[160px] sm:max-w-[100px]">
+                        <img src={new1} alt="New Invoice" className="w-5 h-5 object-contain" />
+                        <h3 className="text-white font-spartan font-bold text-sm whitespace-nowrap">New</h3>
                     </div>
+
                 </div>
             </div>
 
