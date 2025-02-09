@@ -10,7 +10,7 @@ function Header() {
     const { darkMode, toggleDarkMode } = useDarkMode();
 
     return (
-        <div className={`${darkMode ? 'bg-slate-900 ' : 'bg-slate-200 '} min-h-screen`}>
+        <div className={`${darkMode ? 'bg-slate-950 ' : 'bg-slate-200 '} min-h-screen`}>
             <header
                 className={`md:fixed top-0 left-0 w-full lg:justify-between flex justify-between items-center md:flex-col md:w-[70px] md:rounded-t-xl md:rounded-r-xl md:h-screen 
         ${darkMode ? 'bg-[rgba(30,33,57,1)]' : 'bg-[rgba(47,49,72,1)]'}`}
