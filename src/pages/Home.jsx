@@ -79,33 +79,33 @@ function Home() {
 
             </div>
 
-            <div className="w-full max-w-4xl  gap-4  grid">
-
+            <div className="w-full max-w-4xl gap-4 grid ">
                 {filtereddata.length > 0 ? (
                     filtereddata.map((invoice) => (
                         <div
                             key={invoice.id}
                             onClick={() => handleNavigate(invoice.id)}
-                            className={`cursor-pointer hover:border-2 border-purple-600 flex justify-between items-center p-4 rounded-lg shadow-md ${darkMode ? "bg-slate-800 text-white" : "bg-white"}`}
+                            className={`cursor-pointer hover:border-2 border-purple-600 p-4  rounded-lg  shadow-md flex justify-between gap-4 sm:items-center ${darkMode ? "bg-slate-800 text-white" : "bg-white"}`}
                         >
-                            <div>
-                                <h3 className="text-lg font-bold font-spartan mb-2">
+                            <div className="flex flex-col sm:flex-row  sm:gap-2 md:gap-16 ">
+                                <h3 className="text-lg font-bold font-spartan md:mb-0 mb-2">
                                     <span className="text-slate-400">#</span>{`${invoice.id}`}
                                 </h3>
-                                <p className={`${darkMode ? 'text-gray-300' : ''} mb-2 text-sm text-gray-500 font-spartan font-medium`}>
-                                    Due
-                                    {new Date(invoice.paymentDue).toLocaleDateString("en-GB", {
+                                <p className={`${darkMode ? 'text-gray-300' : ''} mt-1 text-sm text-gray-500 md:mb-0 mb-2 font-spartan font-medium text-center`}>
+                                    Due {new Date(invoice.paymentDue).toLocaleDateString("en-GB", {
                                         day: "2-digit",
                                         month: "short",
                                         year: "numeric",
                                     })}
                                 </p>
+
                                 <p className="text-xl font-bold font-spartan">{`£${invoice.total.toFixed(2)}`}</p>
                             </div>
-                            <div className="text-right">
-                                <p className="font-medium mb-6 font-spartan text-slate-400">{invoice.clientName}</p>
+
+                            <div className="text-center sm:text-right flex gap-3 items-center flex-col sm:flex-row ">
+                                <p className="font-medium font-spartan text-slate-400 mb-4 lg:mb-0 md:mb-0">{invoice.clientName}</p>
                                 <span
-                                    className={`inline-block px-3 py-2 font-spartan font-bold rounded-md text-sm ${invoice.status === "paid"
+                                    className={`inline-block px-3 py-2 font-spartan text-end font-bold rounded-md text-sm ml-auto ${invoice.status === "paid"
                                         ? "bg-green-100 text-green-600"
                                         : invoice.status === "pending"
                                             ? "bg-yellow-100 text-yellow-600"
@@ -114,6 +114,7 @@ function Home() {
                                 >
                                     ● {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
                                 </span>
+
                             </div>
                         </div>
                     ))
@@ -130,6 +131,9 @@ function Home() {
                     </div>
                 )}
             </div>
+
+
+
         </div>
     );
 }
