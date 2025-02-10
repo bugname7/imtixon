@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDarkMode } from "../context/DarkLightMode";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import new1 from "../assets/images/new1.svg";
 import invois from "../assets/images/invois.png";
 import data from "../assets/data.json";
@@ -59,20 +59,28 @@ function Home() {
                         </option>
                     </select>
 
-                    <div className="flex items-center justify-center gap-2 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit">
+                    <Link to={'/new'} className="flex items-center justify-center gap-2 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit">
                         <img
                             src={new1}
                             alt="New Invoice"
                             className="sm:w-5 sm:h-5 w-4 h-4 object-contain"
                         />
-                        <h3 className="hidden sm:block text-white font-spartan font-bold text-sm">New</h3>
-                    </div>
+                        <h3 className="hidden md:block sm:hidden text-white font-spartan font-bold text-sm">
+                            New
+                        </h3>
+                        <h3 className="hidden lg:block text-white font-spartan font-bold text-sm">
+                            Invoice
+                        </h3>
+                    </Link>
+
+
 
                 </div>
 
             </div>
 
-            <div className="w-full max-w-4xl grid gap-4">
+            <div className="w-full max-w-4xl  gap-4  grid">
+
                 {filtereddata.length > 0 ? (
                     filtereddata.map((invoice) => (
                         <div
