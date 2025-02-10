@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDarkMode } from "../context/DarkLightMode";
 import clearImage from '../assets//images/delete.svg'
+import { Link } from "react-router-dom";
 function NewInvoice() {
     const { darkMode } = useDarkMode();
     const bgClass = darkMode ? "bg-slate-950 text-white" : "bg-slate-200 text-black";
@@ -29,6 +30,7 @@ function NewInvoice() {
 
     return (
         <div className={`${bgClass} min-h-screen px-4 py-8 container`}>
+            <Link to={'/'} className={`${darkMode ? 'text-purple-400' : ''} ml-32 text-black hover:underline`}>Go Back</Link>
             <div className="max-w-xl mx-auto bg-white dark:bg-slate-900 p-6 rounded-lg shadow-lg">
                 <h1 className="text-3xl font-bold mb-8">New Invoice</h1>
 
