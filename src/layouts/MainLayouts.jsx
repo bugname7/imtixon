@@ -2,17 +2,14 @@ import React from 'react';
 import Header from '../components/Header';
 
 function MainLayouts({ children }) {
-
-
     return (
-        <div>
+        <div >
             <Header />
-
 
 
             {children}
 
-        </div >
+        </div>
     );
 }
 

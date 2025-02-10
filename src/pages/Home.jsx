@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useDarkMode } from "../context/DarkLightMode";
+import { useNavigate } from "react-router-dom";
 import new1 from "../assets/images/new1.svg";
 import invois from "../assets/images/invois.png";
-
 import data from "../assets/data.json";
 
 function Home() {
     const { darkMode } = useDarkMode();
     const bgClass = darkMode ? "bg-slate-950" : "bg-slate-200";
+    const navigate = useNavigate();
 
     const [filterStatus, setFilterStatus] = useState("Filter by status");
 
@@ -16,21 +17,23 @@ function Home() {
             ? data
             : data.filter((invoice) => invoice.status === filterStatus.toLowerCase());
 
+    const handleNavigate = (invoiceId) => {
+        navigate(`/invoice/${invoiceId}`);
+    };
+
     return (
         <div
-            className={`${bgClass} min-h-screen flex flex-col items-center justify-start pt-12 pl-6 pb-6 pr-6`}
+            className={`${bgClass} min-h-screen flex flex-col items-center justify-start px-6 pb-6 md:pl-24 sm:pl-8`}
         >
             <div className="w-full max-w-4xl flex justify-between items-center mb-8">
                 <div>
                     <h1
-                        className={`${darkMode ? "text-white" : "text-black"
-                            } sm:text-3xl font-spartan font-bold text-gray-900 xl:text-2xl`}
+                        className={`${darkMode ? "text-white" : "text-black"} sm:text-3xl font-spartan font-bold`}
                     >
                         Invoices
                     </h1>
                     <p
-                        className={`${darkMode ? "text-slate-300" : ""
-                            } font-spartan font-medium text-slate-400 md:text-xs sm:text-xl`}
+                        className={`${darkMode ? "text-slate-300" : ""} font-spartan font-medium text-slate-400`}
                     >
                         {filtereddata.length} invoices
                     </p>
@@ -40,30 +43,33 @@ function Home() {
                         id="status"
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
-                        className={`${darkMode ? "bg-slate-950 text-white" : ""
-                            } font-spartan font-bold block lg:w-[170px] md:w-[150px] bg-slate-200 text-gray-700 focus:outline-none`}
+                        className={`${darkMode ? "bg-slate-950 text-white" : ""} font-spartan font-bold block bg-slate-200 text-gray-700 focus:outline-none sm:text-base text-sm`}
                     >
-                        <option value="Filter by status" className="font-spartan font-bold">
+                        <option value="Filter by status" className="font-spartan font-bold sm:text-base text-sm">
                             Filter by status
                         </option>
-                        <option value="Draft" className="font-spartan font-bold">
+                        <option value="Draft" className="font-spartan font-bold sm:text-base text-sm">
                             Draft
                         </option>
-                        <option value="Pending" className="font-spartan font-bold">
+                        <option value="Pending" className="font-spartan font-bold sm:text-base text-sm">
                             Pending
                         </option>
-                        <option value="Paid" className="font-spartan font-bold">
+                        <option value="Paid" className="font-spartan font-bold sm:text-base text-sm">
                             Paid
                         </option>
                     </select>
 
-                    <div className="flex items-center justify-center gap-2 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit max-w-[160px] sm:max-w-[100px]">
-                        <img src={new1} alt="New Invoice" className="w-5 h-5 object-contain" />
-                        <h3 className="text-white font-spartan font-bold text-sm whitespace-nowrap">
-                            New
-                        </h3>
+                    <div className="flex items-center justify-center gap-2 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit">
+                        <img
+                            src={new1}
+                            alt="New Invoice"
+                            className="sm:w-5 sm:h-5 w-4 h-4 object-contain"
+                        />
+                        <h3 className="hidden sm:block text-white font-spartan font-bold text-sm">New</h3>
                     </div>
+
                 </div>
+
             </div>
 
             <div className="w-full max-w-4xl grid gap-4">
@@ -71,25 +77,27 @@ function Home() {
                     filtereddata.map((invoice) => (
                         <div
                             key={invoice.id}
-                            className={`cursor-pointer hover:border-2 border-purple-600 flex justify-between items-center p-4 rounded-lg shadow-md ${darkMode ? "bg-slate-800 text-white" : "bg-white"
-                                }`}
+                            onClick={() => handleNavigate(invoice.id)}
+                            className={`cursor-pointer hover:border-2 border-purple-600 flex justify-between items-center p-4 rounded-lg shadow-md ${darkMode ? "bg-slate-800 text-white" : "bg-white"}`}
                         >
-                            <div className="">
-                                <h3 className="text-lg font-bold"> <span className="text-slate-400">#</span>{`${invoice.id}`}</h3>
-                                <p className="text-sm text-gray-500">
-                                    Due{" "}
+                            <div>
+                                <h3 className="text-lg font-bold font-spartan mb-2">
+                                    <span className="text-slate-400">#</span>{`${invoice.id}`}
+                                </h3>
+                                <p className={`${darkMode ? 'text-gray-300' : ''} mb-2 text-sm text-gray-500 font-spartan font-medium`}>
+                                    Due
                                     {new Date(invoice.paymentDue).toLocaleDateString("en-GB", {
                                         day: "2-digit",
                                         month: "short",
                                         year: "numeric",
                                     })}
                                 </p>
-                                <p className="text-xl font-bold">{`£${invoice.total.toFixed(2)}`}</p>
+                                <p className="text-xl font-bold font-spartan">{`£${invoice.total.toFixed(2)}`}</p>
                             </div>
                             <div className="text-right">
                                 <p className="font-medium mb-6 font-spartan text-slate-400">{invoice.clientName}</p>
                                 <span
-                                    className={`inline-block px-3 py-1 rounded-full text-sm ${invoice.status === "paid"
+                                    className={`inline-block px-3 py-2 font-spartan font-bold rounded-md text-sm ${invoice.status === "paid"
                                         ? "bg-green-100 text-green-600"
                                         : invoice.status === "pending"
                                             ? "bg-yellow-100 text-yellow-600"
@@ -108,7 +116,7 @@ function Home() {
                             There is nothing here
                         </h2>
                         <p className="text-gray-500">
-                            Create an invoice by clicking the{" "}
+                            Create an invoice by clicking the
                             <span className="font-bold text-purple-600">New</span> button and get started
                         </p>
                     </div>

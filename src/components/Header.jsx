@@ -5,7 +5,6 @@ import shape from '../assets/images/shape.svg';
 import light from '../assets/images/light.svg';
 import brother from '../assets/images/bro.png';
 import dark from '../assets/images/dark.svg';
-import Home from '../pages/Home.jsx';
 
 function Header() {
     const { darkMode, toggleDarkMode } = useDarkMode();
@@ -15,10 +14,11 @@ function Header() {
     const borderClass = darkMode ? 'border-gray-500' : 'border-slate-600';
 
     return (
-        <div className={`${bgClass} min-h-screen`}>
+        <div className={`${bgClass} pb-4 sm:pb-8 md:pb-12`}>
+
             <header
-                className={`md:fixed top-0 left-0 w-full lg:justify-between flex justify-between items-center 
-                    md:flex-col md:w-[70px] md:rounded-t-xl md:rounded-r-xl md:h-screen ${headerClass}`}
+                className={` md:fixed top-0 left-0 w-full lg:justify-between flex justify-between items-center 
+                    md:flex-col md:w-[70px] md:rounded-t-xl md:rounded-r-xl md:h-screen  ${headerClass}`}
             >
                 <div
                     className="w-[70px] h-[70px] bg-cover flex justify-center items-center"
@@ -40,9 +40,7 @@ function Header() {
                     </div>
                 </div>
             </header>
-            <div className='lg:ml-20 md:ml-20' >
-                <Home />
-            </div>
+
         </div>
     );
 }
