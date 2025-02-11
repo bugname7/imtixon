@@ -29,8 +29,8 @@ function NewInvoice() {
     };
 
     return (
-        <div className={`${bgClass} min-h-screen px-4 py-8 container`}>
-            <Link to={'/'} className={`${darkMode ? 'text-purple-400' : ''} ml-32 text-black hover:underline`}>Go Back</Link>
+        <div className={`${bgClass}  px-4 py-8 container`}>
+            <Link to={'/'} className={`${darkMode ? 'text-purple-400' : ''} md:ml-36 mb-4 sm:ml-16 text-black hover:underline font-spartan font-bold`}>🔙Go Back</Link>
             <div className="max-w-xl mx-auto bg-white dark:bg-slate-900 p-6 rounded-lg shadow-lg">
                 <h1 className="text-3xl font-bold mb-8">New Invoice</h1>
 
@@ -233,7 +233,7 @@ function NewInvoice() {
 
 
 
-                <div className="flex sm:flex-col md:justify-between md:flex-row gap-4 ">
+                <div className="flex sm:justify-between md:justify-between md:flex-row gap-4  sm:p-4">
                     <button className="flex-2 bg-gray-100 font-bold font-spartan text-[rgba(126,136,195,1)] px-3 sm:px-5 py-2 sm:py-3 rounded-full">
                         Discard
                     </button>
