@@ -1,14 +1,15 @@
 import React from 'react';
 import MainLayouts from './layouts/MainLayouts';
 import { DarkModeProvider } from './context/DarkLightMode.jsx';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Router } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import InvoiceDetails from './pages/InvoiceDetails.jsx'
-import NewInvoic from './pages/NewInvoic.jsx';
+import NewInvoice from './pages/NewInvoic.jsx';
+import InvoiceEdit from './pages/Invoice-Edit.jsx';
 function App() {
   return (
     <DarkModeProvider>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={
           <MainLayouts>
             <Home />
@@ -23,7 +24,18 @@ function App() {
         <Route path='/new' element={<MainLayouts>
           <NewInvoic />
         </MainLayouts>} />
-      </Routes>
+      </Routes> */}
+
+      <MainLayouts>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/new-invoice" element={<NewInvoice />} />
+          <Route path="/invoice/:id" element={<InvoiceDetails />} />
+          <Route path="/invoice-edit/:id" element={<InvoiceEdit />} />
+        </Routes>
+      </MainLayouts>
+
+
     </DarkModeProvider>
   );
 }
