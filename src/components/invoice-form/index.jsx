@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../context/DarkLightMode.jsx";
@@ -8,11 +8,11 @@ import clearImage from "../../assets/images/delete.svg";
 function InvoiceForm({ id }) {
   const navigate = useNavigate();
   const { darkMode } = useDarkMode();
-  const [invoice, setInvoice] = React.useState(null);
+  const [invoice, setInvoice] = useState(null);
   const { isLoading, sendInvoice, fetchInvoiceById, editInvoice } =
     useInvoiceStore();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchInvoice = async () => {
       if (id) {
         try {
@@ -45,7 +45,7 @@ function InvoiceForm({ id }) {
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (invoice) {
       reset(invoice);
     }
@@ -85,7 +85,7 @@ function InvoiceForm({ id }) {
   return (
     <div
       className={`${
-        darkMode ? "bg-slate-950 text-white" : "bg-slate-200 text-black"
+        darkMode ? "bg-slate-950 text-white" : "bg-slate-200 "
       } px-4 py-8 container `}
     >
       <Link
@@ -102,83 +102,221 @@ function InvoiceForm({ id }) {
           {id ? "Edit Invoice" : "New Invoice"}
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-lg font-bold mb-4 text-purple-500">Bill From</h2>
-          <input
-            {...register("senderAddress.street")}
-            placeholder="Street Address"
+          <h2 className="font-spartan font-bold mb-4 text-purple-500">
+            Bill From
+          </h2>
+          <label
+            htmlFor="street"
             className={`${
-              darkMode ? "bg-[rgba(37,41,69,1)]" : ""
-            } w-full  border   rounded py-3 px-2 outline-none border-[rgba(55,59,83,1)] `}
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  inline-block`}
+          >
+            Street Address
+          </label>
+          <input
+            id="street"
+            {...register("senderAddress.street")}
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full   border   py-3 px-2 outline-none mb-2 `}
           />
-          <div className="flex gap-4">
+          <div className=" gap-4">
+            <label
+              htmlFor="city"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+              City
+            </label>
+
             <input
+              id="city"
               {...register("senderAddress.city")}
-              placeholder="City"
-              className="input"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border    py-3 px-2 outline-none mb-2 `}
             />
+            <label
+              htmlFor="pcode"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+              Post Code
+            </label>
+
             <input
+              id="pcode"
               {...register("senderAddress.postCode")}
-              placeholder="Post Code"
-              className="input"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
+            <label
+              htmlFor="country"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+              Country
+            </label>
+
             <input
               {...register("senderAddress.country")}
-              placeholder="Country"
-              className="input"
+              id="country"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
           </div>
 
           <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
             Bill To
           </h2>
+          <label
+            htmlFor="clientname"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Clients Name
+          </label>
+
           <input
             {...register("clientName")}
-            placeholder="Client's Name"
-            className="input"
+            id="clientname"
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
+          <label
+            htmlFor="clientemail"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Clients Email
+          </label>
+
           <input
             {...register("clientEmail")}
-            placeholder="Client's Email"
+            id="clientemail"
             type="email"
-            className="input"
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
+          <label
+            htmlFor="streetAddres"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Street Address
+          </label>
+
           <input
             {...register("clientAddress.street")}
-            placeholder="Street Address"
-            className="input"
+            id="streetAddres"
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
-          <div className="flex gap-4">
+          <div className=" gap-4">
+            <label
+              htmlFor="clientcity"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+              City
+            </label>
+
             <input
               {...register("clientAddress.city")}
-              placeholder="City"
-              className="input"
+              id="clientcity"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
+            <label
+              htmlFor="clientpostcode"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+Post Code            </label>
+
             <input
               {...register("clientAddress.postCode")}
-              placeholder="Post Code"
-              className="input"
+id="clientpostcode"              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
+            <label
+              htmlFor="clientCount"
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1  `}
+            >
+              Clients Name
+            </label>
+
             <input
               {...register("clientAddress.country")}
               placeholder="Country"
-              className="input"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
           </div>
 
           <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
             Invoice Details
           </h2>
-          <input {...register("invoiceDate")} type="date" className="input" />
-          <select {...register("paymentTerms")} className="input">
+          <label
+            htmlFor="clientname"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Clients Name
+          </label>
+
+          <input
+            {...register("invoiceDate")}
+            type="date"
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+          />
+          <select
+            {...register("paymentTerms")}
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+          >
             <option value="Net 1 Days">Net 1 Days</option>
             <option value="Net 7 Days">Net 7 Days</option>
             <option value="Net 14 Days">Net 14 Days</option>
             <option value="Net 30 Days">Net 30 Days</option>
           </select>
+          <label
+            htmlFor="clientname"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Clients Name
+          </label>
+
           <input
             {...register("description")}
             placeholder="Project Description"
-            className="input"
+            className={`${
+              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
 
           <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
@@ -186,21 +324,55 @@ function InvoiceForm({ id }) {
           </h2>
           {fields.map((item, index) => (
             <div key={item.id} className="flex gap-4 mb-4">
+              <label
+                htmlFor="clientname"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Clients Name
+              </label>
+
               <input
                 {...register(`items.${index}.name`)}
                 placeholder="Item Name"
-                className="input"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
               />
+              <label
+                htmlFor="clientname"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Clients Name
+              </label>
+
               <input
                 {...register(`items.${index}.quantity`)}
                 type="number"
-                className="input"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
               />
+              <label
+                htmlFor="clientname"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Clients Name
+              </label>
+
               <input
                 {...register(`items.${index}.price`)}
                 type="number"
-                className="input"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
               />
+
               <button type="button" onClick={() => remove(index)}>
                 <img src={clearImage} alt="Remove" className="w-6 h-6" />
               </button>
@@ -221,7 +393,13 @@ function InvoiceForm({ id }) {
               {id ? "Cansel" : "Discard"}
             </button>
             {id ? (
-              <button type="button" onClick={handleSubmit(onSubmit)}>
+              <button
+                type="button"
+                onClick={handleSubmit(onSubmit)}
+                className={`${
+                  darkMode ? "bg-purple-800" : "bg-purple-600"
+                } text-slate-50 px-5 rounded-full hover:bg-purple-700`}
+              >
                 Save changes
               </button>
             ) : (
@@ -229,14 +407,18 @@ function InvoiceForm({ id }) {
                 <button
                   type="button"
                   onClick={handleSubmit((data) => onSubmit(data, "draft"))}
-                  className={`${darkMode ? 'bg-slate-800':'bg-slate-900'} font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full` }
+                  className={`${
+                    darkMode ? "bg-slate-800" : "bg-slate-900"
+                  } font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full`}
                 >
                   Save as Draft
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit((data) => onSubmit(data, "pending"))}
-                  className={`${darkMode? 'bg-purple-800':'bg-purple-600'} text-slate-50 px-5 rounded-full hover:bg-purple-700`}
+                  className={`${
+                    darkMode ? "bg-purple-800" : "bg-purple-600"
+                  } text-slate-50 px-5 rounded-full hover:bg-purple-700`}
                   disabled={isLoading}
                 >
                   {isLoading ? "Sending..." : "Save & Send"}
