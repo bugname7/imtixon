@@ -26,9 +26,9 @@ function Home() {
         );
 
   const statusColors = {
-    paid: "bg-green-100 text-green-600",
-    pending: "bg-yellow-100 text-yellow-600",
-    draft: "bg-gray-100 text-gray-400",
+    paid: "bg-green-200 text-green-600",
+    pending: "bg-yellow-200 text-yellow-600",
+    draft: "bg-gray-200 text-gray-400",
   };
 
   return (
@@ -149,7 +149,7 @@ function Home() {
                       })}
                     </p>
                     <p className="text-xl font-bold font-spartan">
-                      {`£${invoice.total?.toFixed(2).slice(0, 4)}`}
+                      {`£${invoice.total?.toFixed(2).slice(0, 6)}`}
                     </p>
                   </div>
 
@@ -161,7 +161,7 @@ function Home() {
                     <span
                       className={`inline-block ${
                         darkMode ? "bg-opacity-10" : "bg-opacity-40"
-                      } px-3 py-2 font-spartan w-24 font-bold rounded-md items-center text-center text-sm ${
+                      } px-3 py-2 font-spartan w-24 font-bold rounded-md items-center text-center  ${
                         statusColors[invoice.status?.toLowerCase()] ||
                         "bg-gray-100 text-gray-200"
                       }`}
@@ -179,19 +179,33 @@ function Home() {
               </Link>
             ))
           ) : (
-            <div className="flex flex-col items-center text-center mt-12">
+            <div className="flex flex-col items-center text-center mt-12 ">
               <img
                 src={invois}
                 alt="No Invoices"
                 className="w-64 h-64 object-contain mb-6"
               />
-              <h2 className="text-xl font-bold text-gray-900 mb-2">
+              <h2
+                className={`${
+                  darkMode ? "text-slate-100" : "text-slate-900"
+                } text-[25px]  mb-2 font-spartan font-bold`}
+              >
                 There is nothing here
               </h2>
-              <p className="text-gray-500">
-                Create an invoice by clicking the
-                <span className="font-bold text-purple-600">New</span> button
-                and get started
+              <p
+                className={` ${
+                  darkMode ? "text-slate-100" : "text-gray-500"
+                } w-[250px] font-spartan font-medium `}
+              >
+                Create an invoice by clicking the{" "}
+                <span
+                  className={` ${
+                    darkMode ? "text-slate-100" : "text-gray-600"
+                  } w-[250px] font-spartan font-bold `}
+                >
+                  New Invoice
+                </span>{" "}
+                button and get started
               </p>
             </div>
           )}

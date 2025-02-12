@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        'xs': '475px',
+        'xs': '485px',
       },
       fontFamily: {
         spartan: ["'League Spartan'", "sans-serif"],

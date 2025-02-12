@@ -86,7 +86,7 @@ function InvoiceForm({ id }) {
     <div
       className={`${
         darkMode ? "bg-slate-950 text-white" : "bg-slate-200 text-black"
-      } px-4 py-8 container`}
+      } px-4 py-8 container `}
     >
       <Link
         to={"/"}
@@ -229,14 +229,14 @@ function InvoiceForm({ id }) {
                 <button
                   type="button"
                   onClick={handleSubmit((data) => onSubmit(data, "draft"))}
-                  className="btn"
+                  className={`${darkMode ? 'bg-slate-800':'bg-slate-900'} font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full` }
                 >
                   Save as Draft
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit((data) => onSubmit(data, "pending"))}
-                  className="btn"
+                  className={`${darkMode? 'bg-purple-800':'bg-purple-600'} text-slate-50 px-5 rounded-full hover:bg-purple-700`}
                   disabled={isLoading}
                 >
                   {isLoading ? "Sending..." : "Save & Send"}
