@@ -28,7 +28,7 @@ function InvoiceForm({ id }) {
     fetchInvoice();
   }, [id, fetchInvoiceById]);
 
-  const { register, handleSubmit, control, reset } = useForm({
+  const { register, handleSubmit, control,watch, setValue, reset } = useForm({
     defaultValues: invoice || {
       id: "",
       createdAt: new Date().toISOString(),
@@ -50,17 +50,26 @@ function InvoiceForm({ id }) {
       reset(invoice);
     }
   }, [invoice, reset]);
-
+  useEffect(() => {
+    const items = watch("items");
+    items.forEach((item, index) => {
+      const total = (item.quantity || 0) * (item.price || 0);
+      setValue(`items.${index}.total`, total);
+    });
+  }, [watch("items")]);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
 
   const calculateTotal = (data) => {
-    return data.items.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    );
+    console.log("data.items:", data.items); 
+    if (!Array.isArray(data.items)) {
+      console.error("❌ Xatolik: `items` massiv emas!", data.items);
+      return 0;
+    }
+    
+    return data.items.reduce((acc, item) => acc + item.quantity * item.price, 0);
   };
 
   const onSubmit = async (data, status) => {
@@ -69,7 +78,6 @@ function InvoiceForm({ id }) {
 
       if (id) {
         await editInvoice(id, data);
-        toast.success("saqlandi ✅");
 
         navigate("/");
       } else {
@@ -331,80 +339,88 @@ function InvoiceForm({ id }) {
             Item List
           </h2>
           {fields.map((item, index) => (
-           <div key={item.id } className=" gap-4 mb-4">
-             <div className={``} >
-              <label
-                htmlFor="itemname"
-                className={`${
-                  darkMode ? "text-slate-300" : "text-slate-500"
-                } font-medium font-spartan mb-1  `}
-              >
-                Item Name
-              </label>
+            <div key={item.id} className=" mb-4">
+              <div className={`flex gap-2 `}>
+                <div>
+                  <label
+                    htmlFor="itemname"
+                    className={`${
+                      darkMode ? "text-slate-300" : "text-slate-500"
+                    } font-medium font-spartan mb-1  `}
+                  >
+                    Item Name
+                  </label>
 
-              <input
-                {...register(`items.${index}.name`)}
-                id="itemname"
-                className={`${
-                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
-              />
-              <label
-                htmlFor="Qty"
-                className={`${
-                  darkMode ? "text-slate-300" : "text-slate-500"
-                } font-medium font-spartan mb-1  `}
-              >
-                Qty.
-              </label>
+                  <input
+                    {...register(`items.${index}.name`)}
+                    id="itemname"
+                    className={`${
+                      darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                    } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+                  />
+                </div>
+               <div key={item.id} className="flex gap-2 items-center">
+         
+          <div className="flex flex-col">
+            <label
+              htmlFor={`items.${index}.quantity`}
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1`}
+            >
+              Qty.
+            </label>
+            <input
+              {...register(`items.${index}.quantity`, { valueAsNumber: true })}
+              type="number"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md w-[60px] border py-3 px-2 outline-none mb-2`}
+            />
+          </div>
 
-              <input
-                {...register(`items.${index}.quantity`)}
-                type="number"
-                id="Qty"
-                className={`${
-                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                } rounded-md    w-[60px] border   py-3 px-2 outline-none mb-2 `}
-              />
-              <label
-                htmlFor="price"
-                className={`${
-                  darkMode ? "text-slate-300" : "text-slate-500"
-                } font-medium font-spartan mb-1  `}
-              >
-                Price
-              </label>
+         
+          <div className="flex flex-col">
+            <label
+              htmlFor={`items.${index}.price`}
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1`}
+            >
+              Price
+            </label>
+            <input
+              {...register(`items.${index}.price`, { valueAsNumber: true })}
+              type="number"
+              className={`${
+                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+              } rounded-md w-[70px] border py-3 px-2 outline-none mb-2`}
+            />
+          </div>
 
-              <input
-                {...register(`items.${index}.price`)}
-                type="number"
-                id="price"
-                className={`${
-                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                } rounded-md    w-[70px] border   py-3 px-2 outline-none mb-2 `}
-              />
-              <label
-                htmlFor="total"
-                className={`${
-                  darkMode ? "text-slate-300" : "text-slate-500"
-                } font-medium font-spartan mb-1  `}
-              >
-                Total
-              </label>
-              <input
-                {...register(`items.${index}.price`)}
-                type="number"
-                id="total"
-                className={`${
-                  darkMode ? "bg-slate-900 " : ""
-                }   w-[50px]    py-3 px-2 outline-none mb-2 `}
-              />
-
-              <button type="button" onClick={() => remove(index)}>
-                <img src={clearImage} alt="Remove" className="w-6 h-6" />
-              </button>
+          <div className="flex flex-col">
+            <label
+              className={`${
+                darkMode ? "text-slate-300" : "text-slate-500"
+              } font-medium font-spartan mb-1`}
+            >
+              Total
+            </label>
+            <input
+              {...register(`items.${index}.total`)}
+              readOnly
+              className="rounded-md w-[80px] border-2 py-3 px-2 outline-none mb-2 bg-gray-100"
+            />
+          </div></div>
+                <button type="button" onClick={() => remove(index)}>
+                  <img
+                    src={clearImage}
+                    alt="Remove"
+                    className="w-6 h-6 transition duration-300 hover:fill-red-700"
+                  />
+                </button>
+              </div>
             </div>
-           </div>
           ))}
           <button
             type="button"
