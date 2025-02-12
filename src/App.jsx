@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import InvoiceDetails from "./pages/InvoiceDetails.jsx";
 import NewInvoice from "./pages/NewInvoic.jsx";
-import InvoiceEdit from "./pages/Invoice-Edit.jsx";
+import InvoiceEdit from "./pages/InvoiceEdit.jsx";
 import { Toaster } from "react-hot-toast";
 function App() {
   return (
