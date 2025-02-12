@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = "https://f8a3f2c439e7a64e.mokky.dev/invoices";
 
@@ -13,7 +15,8 @@ const useInvoiceStore = create((set, get) => ({
             const response = await axios.get(API_URL);
             set({ invoices: response.data });
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error);
+            toast.error("Fakturalarni yuklashda xatolik!");
+            console.error("Xatolik mavjud!", error);
         } finally {
             set({ isLoading: false });
         }
@@ -25,7 +28,8 @@ const useInvoiceStore = create((set, get) => ({
             const response = await axios.get(`${API_URL}/${id}`);
             return response.data;
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error);
+            toast.error("Fakturani yuklashda xatolik!");
+            console.error("Xatolik mavjud!", error);
             return null;
         } finally {
             set({ isLoading: false });
@@ -36,8 +40,10 @@ const useInvoiceStore = create((set, get) => ({
         set({ isLoading: true });
         try {
             await axios.post(API_URL, data);
+            toast.success("Faktura muvaffaqiyatli qoshildi!");
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error);
+            toast.error("Faktura qoshishda xatolik!");
+            console.error("Xatolik mavjud!", error);
         } finally {
             set({ isLoading: false });
         }
@@ -47,8 +53,10 @@ const useInvoiceStore = create((set, get) => ({
         set({ isLoading: true });
         try {
             await axios.patch(`${API_URL}/${id}`, updatedData);
+            toast.success("Faktura muvaffaqiyatli yangilandi!");
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error, "Data sent:", updatedData);
+            toast.error("Faktura yangilashda xatolik!");
+            console.error("Xatolik mavjud!", error, "Data sent:", updatedData);
         } finally {
             set({ isLoading: false });
         }
@@ -61,8 +69,10 @@ const useInvoiceStore = create((set, get) => ({
             set((state) => ({
                 invoices: state.invoices.filter(invoice => invoice.id !== id)
             }));
+            toast.success("Faktura muvaffaqiyatli ochirildi!");
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error);
+            toast.error("Faktura ochirishda xatolik!");
+            console.error("Xatolik mavjud!", error);
         } finally {
             set({ isLoading: false });
         }
@@ -78,8 +88,10 @@ const useInvoiceStore = create((set, get) => ({
                     invoice.id === id ? { ...invoice, status: newStatus } : invoice
                 )
             }));
+            toast.success("Faktura statusi yangilandi!");
         } catch (error) {
-            console.error("Xatolik mavjudga oxshaydi!", error);
+            toast.error("Faktura statusini yangilashda xatolik!");
+            console.error("Xatolik mavjud!", error);
         } finally {
             set({ isLoading: false });
         }

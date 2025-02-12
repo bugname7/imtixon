@@ -2,7 +2,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDarkMode } from "../context/DarkLightMode";
 import useInvoiceStore from "../store/store.js";
 import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 
 const InvoiceDetails = () => {
   const { fetchInvoiceById, deleteInvoice, updateInvoiceStatus } =
@@ -26,7 +25,6 @@ const InvoiceDetails = () => {
       await updateInvoiceStatus(id, "paid");
       const updatedInvoice = await fetchInvoiceById(id);
       setInvoice(updatedInvoice);
-      toast.success("Hisob-faktura to'langan deb belgilangan! ✅");
     } catch (error) {
       console.error("Xatolik mavjudga oxshaydi", error);
     }
@@ -44,7 +42,6 @@ const InvoiceDetails = () => {
     setIsModalOpen(false);
     try {
       await deleteInvoice(id);
-      toast.success("Hisob-faktura muvaffaqiyatli o'chirildi! 🗑️");
 
       navigate("/");
     } catch (error) {
@@ -189,23 +186,23 @@ const InvoiceDetails = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-4 sm:px-0">
           <div className="bg-white p-12 rounded-lg shadow-lg max-w-md sm:max-w-lg w-full">
             <h2 className="text-2xl sm:text-3xl font-bold font-spartan mb-4 leading-[32px]">
-              Confirm Deletion
+              Ochirishni tasdiqlang
             </h2>
             <p className="text-slate-400 mb-6 font-spartan font-normal leading-[22px]">
-              {`Are you sure you want to delete invoice #${invoice.id}? This action cannot be undone.`}
+              {`Haqiqatan ham ${invoice.id} hisob-fakturasini ochirib tashlamoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             </p>
             <div className="flex  sm:flex-row justify-end  gap-4">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="bg-slate-100 text-slate-500 px-6 hover:bg-slate-200 py-3 rounded-full font-medium font-spartan w-[100px]   sm:w-auto"
               >
-                Cancel
+                Bekor qilish
               </button>
               <button
                 onClick={handleDelete}
                 className="bg-red-600 hover:bg-red-700 text-slate-100 font-medium font-spartan   px-6 py-3 rounded-full w-[100px] sm:w-auto"
               >
-                Delete
+                Ochirish
               </button>
             </div>
           </div>
