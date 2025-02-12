@@ -246,42 +246,41 @@ function InvoiceForm({ id }) {
                 darkMode ? "text-slate-300" : "text-slate-500"
               } font-medium font-spartan mb-1  `}
             >
-Post Code            </label>
+              Post Code
+            </label>
 
             <input
               {...register("clientAddress.postCode")}
-id="clientpostcode"              className={`${
+              id="clientpostcode"
+              className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
               } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
             <label
-              htmlFor="clientCount"
+              htmlFor="clientcountry"
               className={`${
                 darkMode ? "text-slate-300" : "text-slate-500"
               } font-medium font-spartan mb-1  `}
             >
-              Clients Name
+              Country
             </label>
 
             <input
               {...register("clientAddress.country")}
-              placeholder="Country"
+              id="clientcountry"
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
               } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
             />
           </div>
 
-          <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
-            Invoice Details
-          </h2>
           <label
             htmlFor="clientname"
             className={`${
               darkMode ? "text-slate-300" : "text-slate-500"
             } font-medium font-spartan mb-1  `}
           >
-            Clients Name
+            Issue Date
           </label>
 
           <input
@@ -291,7 +290,16 @@ id="clientpostcode"              className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
             } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
+          <label
+            htmlFor="payment"
+            className={`${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            } font-medium font-spartan mb-1  `}
+          >
+            Payment Terms
+          </label>
           <select
+            id="payment"
             {...register("paymentTerms")}
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
@@ -303,87 +311,111 @@ id="clientpostcode"              className={`${
             <option value="Net 30 Days">Net 30 Days</option>
           </select>
           <label
-            htmlFor="clientname"
+            htmlFor="description"
             className={`${
               darkMode ? "text-slate-300" : "text-slate-500"
             } font-medium font-spartan mb-1  `}
           >
-            Clients Name
+            Project Description
           </label>
 
           <input
             {...register("description")}
-            placeholder="Project Description"
+            id="description"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
             } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
           />
 
-          <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
+          <h2 className="text-lg font-bold mb-4 text-slate-500 font-spartan mt-4">
             Item List
           </h2>
           {fields.map((item, index) => (
-            <div key={item.id} className="flex gap-4 mb-4">
+           <div key={item.id } className=" gap-4 mb-4">
+             <div className={``} >
               <label
-                htmlFor="clientname"
+                htmlFor="itemname"
                 className={`${
                   darkMode ? "text-slate-300" : "text-slate-500"
                 } font-medium font-spartan mb-1  `}
               >
-                Clients Name
+                Item Name
               </label>
 
               <input
                 {...register(`items.${index}.name`)}
-                placeholder="Item Name"
+                id="itemname"
                 className={`${
                   darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
                 } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
               />
               <label
-                htmlFor="clientname"
+                htmlFor="Qty"
                 className={`${
                   darkMode ? "text-slate-300" : "text-slate-500"
                 } font-medium font-spartan mb-1  `}
               >
-                Clients Name
+                Qty.
               </label>
 
               <input
                 {...register(`items.${index}.quantity`)}
                 type="number"
+                id="Qty"
                 className={`${
                   darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+                } rounded-md    w-[60px] border   py-3 px-2 outline-none mb-2 `}
               />
               <label
-                htmlFor="clientname"
+                htmlFor="price"
                 className={`${
                   darkMode ? "text-slate-300" : "text-slate-500"
                 } font-medium font-spartan mb-1  `}
               >
-                Clients Name
+                Price
               </label>
 
               <input
                 {...register(`items.${index}.price`)}
                 type="number"
+                id="price"
                 className={`${
                   darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+                } rounded-md    w-[70px] border   py-3 px-2 outline-none mb-2 `}
+              />
+              <label
+                htmlFor="total"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Total
+              </label>
+              <input
+                {...register(`items.${index}.price`)}
+                type="number"
+                id="total"
+                className={`${
+                  darkMode ? "bg-slate-900 " : ""
+                }   w-[50px]    py-3 px-2 outline-none mb-2 `}
               />
 
               <button type="button" onClick={() => remove(index)}>
                 <img src={clearImage} alt="Remove" className="w-6 h-6" />
               </button>
             </div>
+           </div>
           ))}
           <button
             type="button"
             onClick={() =>
               append({ name: "", quantity: 1, price: 0, total: 0 })
             }
-            className="btn"
+            className={`${
+              darkMode
+                ? "bg-[rgba(37,41,69,1)] hover:bg-[#2c3051]"
+                : "bg-slate-100 hover:bg-slate-200"
+            }  text-slate-400 w-full py-3 rounded-full font-spartan font-bold `}
           >
             + Add Item
           </button>
