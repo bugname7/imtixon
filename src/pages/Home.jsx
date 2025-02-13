@@ -100,7 +100,7 @@ function Home() {
           </select>
 
           <Link
-            to={"/newInvoice"}
+            to={"/new-invoice"}
             className="flex items-center justify-center gap-2 hover:bg-purple-500 bg-purple-600 rounded-3xl p-2 cursor-pointer w-fit"
           >
             <img
