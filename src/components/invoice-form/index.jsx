@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../context/DarkLightMode.jsx";
 import useInvoiceStore from "../../store/store.js";
 import clearImage from "../../assets/images/delete.svg";
+import { toast } from "react-hot-toast";
 
 function InvoiceForm({ id }) {
   const navigate = useNavigate();
@@ -28,7 +29,15 @@ function InvoiceForm({ id }) {
     fetchInvoice();
   }, [id, fetchInvoiceById]);
 
-  const { register, handleSubmit, control,watch, setValue, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: invoice || {
       id: "",
       createdAt: new Date().toISOString(),
@@ -63,13 +72,16 @@ function InvoiceForm({ id }) {
   });
 
   const calculateTotal = (data) => {
-    console.log("data.items:", data.items); 
+    console.log("data.items:", data.items);
     if (!Array.isArray(data.items)) {
       console.error("❌ Xatolik: `items` massiv emas!", data.items);
       return 0;
     }
-    
-    return data.items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
+    return data.items.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
   };
 
   const onSubmit = async (data, status) => {
@@ -123,11 +135,28 @@ function InvoiceForm({ id }) {
           </label>
           <input
             id="street"
-            {...register("senderAddress.street")}
+            {...register("senderAddress.street", {
+              required: "Ko'cha nomini kiriting",
+              minLength: {
+                value: 3,
+                message: "Kamida 3 ta harf bolishi kerak",
+              },
+              pattern: {
+                value: /^[A-Za-z\s]+$/,
+                message: "Faqat harflardan iborat bolishi kerak",
+              },
+            })}
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full   border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.senderAddress?.street && (
+            <p className="text-red-500 text-sm">
+              {errors.senderAddress.street.message}
+            </p>
+          )}
+
           <div className=" gap-4">
             <label
               htmlFor="city"
@@ -140,11 +169,28 @@ function InvoiceForm({ id }) {
 
             <input
               id="city"
-              {...register("senderAddress.city")}
+              {...register("senderAddress.city", {
+                required: "Shahar nomini kiriting",
+                minLength: {
+                  value: 2,
+                  message: "Kamida 2 ta harf bolishi kerak",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Faqat harflardan iborat bolishi kerak",
+                },
+              })}
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border    py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.senderAddress?.city && (
+              <p className="text-red-500 text-sm">
+                {errors.senderAddress.city.message}
+              </p>
+            )}
+
             <label
               htmlFor="pcode"
               className={`${
@@ -156,11 +202,24 @@ function InvoiceForm({ id }) {
 
             <input
               id="pcode"
-              {...register("senderAddress.postCode")}
+              {...register("senderAddress.postCode", {
+                required: "Pochta kodini kiriting",
+                pattern: {
+                  value: /^[0-9]{5,6}$/,
+                  message: "Faqat 5 yoki 6 xonali raqam bolishi kerak",
+                },
+              })}
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.senderAddress?.postCode && (
+              <p className="text-red-500 text-sm">
+                {errors.senderAddress.postCode.message}
+              </p>
+            )}
+
             <label
               htmlFor="country"
               className={`${
@@ -171,12 +230,28 @@ function InvoiceForm({ id }) {
             </label>
 
             <input
-              {...register("senderAddress.country")}
+              {...register("senderAddress.country", {
+                required: "Mamlakat nomini kiriting",
+                minLength: {
+                  value: 3,
+                  message: "Kamida 3 ta harf bolishi kerak",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Faqat harflardan iborat bolishi kerak",
+                },
+              })}
               id="country"
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.senderAddress?.country && (
+              <p className="text-red-500 text-sm">
+                {errors.senderAddress.country.message}
+              </p>
+            )}
           </div>
 
           <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
@@ -192,12 +267,27 @@ function InvoiceForm({ id }) {
           </label>
 
           <input
-            {...register("clientName")}
+            {...register("clientName", {
+              required: "Mijoz ismini kiriting",
+              minLength: {
+                value: 3,
+                message: "Kamida 3 ta harf bolishi kerak",
+              },
+              pattern: {
+                value: /^[A-Za-z\s]+$/,
+                message: "Faqat harflardan iborat bolishi kerak",
+              },
+            })}
             id="clientname"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.clientName && (
+            <p className="text-red-500 text-sm">{errors.clientName.message}</p>
+          )}
+
           <label
             htmlFor="clientemail"
             className={`${
@@ -208,13 +298,24 @@ function InvoiceForm({ id }) {
           </label>
 
           <input
-            {...register("clientEmail")}
+            {...register("clientEmail", {
+              required: "Email manzilini kiriting",
+              pattern: {
+                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: "Notogri email formati",
+              },
+            })}
             id="clientemail"
             type="email"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.clientEmail && (
+            <p className="text-red-500 text-sm">{errors.clientEmail.message}</p>
+          )}
+
           <label
             htmlFor="streetAddres"
             className={`${
@@ -225,12 +326,25 @@ function InvoiceForm({ id }) {
           </label>
 
           <input
-            {...register("clientAddress.street")}
+            {...register("clientAddress.street", {
+              required: "Manzilni kiriting",
+              minLength: {
+                value: 5,
+                message: "Kamida 5 ta belgi bolishi kerak",
+              },
+            })}
             id="streetAddres"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.clientAddress?.street && (
+            <p className="text-red-500 text-sm">
+              {errors.clientAddress.street.message}
+            </p>
+          )}
+
           <div className=" gap-4">
             <label
               htmlFor="clientcity"
@@ -242,12 +356,29 @@ function InvoiceForm({ id }) {
             </label>
 
             <input
-              {...register("clientAddress.city")}
+              {...register("clientAddress.city", {
+                required: "Shahar nomini kiriting",
+                minLength: {
+                  value: 3,
+                  message: "Kamida 3 ta harf bolishi kerak",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Faqat harflardan iborat bolishi kerak",
+                },
+              })}
               id="clientcity"
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.clientAddress?.city && (
+              <p className="text-red-500 text-sm">
+                {errors.clientAddress.city.message}
+              </p>
+            )}
+
             <label
               htmlFor="clientpostcode"
               className={`${
@@ -258,12 +389,26 @@ function InvoiceForm({ id }) {
             </label>
 
             <input
-              {...register("clientAddress.postCode")}
+              {...register("clientAddress.postCode", {
+                required: "Pochta kodini kiriting",
+                pattern: {
+                  value: /^[0-9]{5,6}$/,
+                  message:
+                    "Faqat raqam bolishi va 5-6 ta belgidan iborat bolishi kerak",
+                },
+              })}
               id="clientpostcode"
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.clientAddress?.postCode && (
+              <p className="text-red-500 text-sm">
+                {errors.clientAddress.postCode.message}
+              </p>
+            )}
+
             <label
               htmlFor="clientcountry"
               className={`${
@@ -274,12 +419,28 @@ function InvoiceForm({ id }) {
             </label>
 
             <input
-              {...register("clientAddress.country")}
+              {...register("clientAddress.country", {
+                required: "Mamlakat nomini kiriting",
+                minLength: {
+                  value: 3,
+                  message: "Kamida 3 ta harf bolishi kerak",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Faqat harflardan iborat blishi kerak",
+                },
+              })}
               id="clientcountry"
               className={`${
                 darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
             />
+
+            {errors.clientAddress?.country && (
+              <p className="text-red-500 text-sm">
+                {errors.clientAddress.country.message}
+              </p>
+            )}
           </div>
 
           <label
@@ -292,12 +453,27 @@ function InvoiceForm({ id }) {
           </label>
 
           <input
-            {...register("invoiceDate")}
+            {...register("invoiceDate", {
+              required: "Sanani tanlang",
+              validate: (value) => {
+                const selectedDate = new Date(value);
+                const today = new Date();
+                if (selectedDate > today) {
+                  return "Kelajak sanani tanlash mumkin emas";
+                }
+                return true;
+              },
+            })}
             type="date"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.invoiceDate && (
+            <p className="text-red-500 text-sm">{errors.invoiceDate.message}</p>
+          )}
+
           <label
             htmlFor="payment"
             className={`${
@@ -308,16 +484,23 @@ function InvoiceForm({ id }) {
           </label>
           <select
             id="payment"
-            {...register("paymentTerms")}
+            {...register("paymentTerms", {
+              required: "Tolov shartlarini tanlang",
+            })}
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 appearance-none`}
           >
             <option value="Net 1 Days">Net 1 Days</option>
             <option value="Net 7 Days">Net 7 Days</option>
             <option value="Net 14 Days">Net 14 Days</option>
             <option value="Net 30 Days">Net 30 Days</option>
           </select>
+          {errors.paymentTerms && (
+            <p className="text-red-500 text-sm">
+              {errors.paymentTerms.message}
+            </p>
+          )}
           <label
             htmlFor="description"
             className={`${
@@ -328,12 +511,22 @@ function InvoiceForm({ id }) {
           </label>
 
           <input
-            {...register("description")}
+            {...register("description", {
+              required: "Ta'rif maydoni bosh bolishi mumkin emas",
+              minLength: {
+                value: 5,
+                message: "Ta'rif kamida 5 ta belgidan iborat bolishi kerak",
+              },
+            })}
             id="description"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
           />
+
+          {errors.description && (
+            <p className="text-red-500 text-sm">{errors.description.message}</p>
+          )}
 
           <h2 className="text-lg font-bold mb-4 text-slate-500 font-spartan mt-4">
             Item List
@@ -352,73 +545,108 @@ function InvoiceForm({ id }) {
                   </label>
 
                   <input
-                    {...register(`items.${index}.name`)}
-                    id="itemname"
+                    {...register(`items.${index}.name`, {
+                      required: "Mahsulot nomini kiriting",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "Mahsulot nomi kamida 3 ta belgidan iborat bolishi kerak",
+                      },
+                    })}
+                    id={`itemname-${index}`}
                     className={`${
                       darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                    } rounded-md    w-full  border   py-3 px-2 outline-none mb-2 `}
+                    } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
                   />
+
+                  {errors.items?.[index]?.name && (
+                    <p className="text-red-500 text-sm">
+                      {errors.items[index].name.message}
+                    </p>
+                  )}
                 </div>
-               <div key={item.id} className="flex gap-2 items-center">
-         
-          <div className="flex flex-col">
-            <label
-              htmlFor={`items.${index}.quantity`}
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1`}
-            >
-              Qty.
-            </label>
-            <input
-              {...register(`items.${index}.quantity`, { valueAsNumber: true })}
-              type="number"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-[60px] border py-3 px-2 outline-none mb-2`}
-            />
-          </div>
+                <div key={item.id} className="flex gap-2 items-center">
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor={`items.${index}.quantity`}
+                      className={`${
+                        darkMode ? "text-slate-300" : "text-slate-500"
+                      } font-medium font-spartan mb-1`}
+                    >
+                      Qty.
+                    </label>
+                    <input
+                      {...register(`items.${index}.quantity`, {
+                        required: "Qiymatni kiriting",
+                        valueAsNumber: true,
+                        min: {
+                          value: 1,
+                          message: " Qiymat kamida 1 bolishi kerak",
+                        },
+                      })}
+                      type="number"
+                      className={`${
+                        darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                      } rounded-md w-[60px] border py-3 px-2 outline-none mb-2`}
+                    />
 
-         
-          <div className="flex flex-col">
-            <label
-              htmlFor={`items.${index}.price`}
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1`}
-            >
-              Price
-            </label>
-            <input
-              {...register(`items.${index}.price`, { valueAsNumber: true })}
-              type="number"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-[70px] border py-3 px-2 outline-none mb-2`}
-            />
-          </div>
+                    {errors.items?.[index]?.quantity && (
+                      <p className="text-red-500 text-sm">
+                        {errors.items[index].quantity.message}
+                      </p>
+                    )}
+                  </div>
 
-          <div className="flex flex-col">
-            <label
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1`}
-            >
-              Total
-            </label>
-            <input
-              {...register(`items.${index}.total`)}
-              readOnly
-              className="rounded-md w-[80px] border-2 py-3 px-2 outline-none mb-2 bg-gray-100"
-            />
-          </div></div>
-                <button type="button" onClick={() => remove(index)}>
-                  <img
-                    src={clearImage}
-                    alt="Remove"
-                    className="w-6 h-6 transition duration-300 hover:fill-red-700"
-                  />
-                </button>
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor={`items.${index}.price`}
+                      className={`${
+                        darkMode ? "text-slate-300" : "text-slate-500"
+                      } font-medium font-spartan mb-1`}
+                    >
+                      Price
+                    </label>
+                    <input
+                      {...register(`items.${index}.price`, {
+                        required: "Narxni kiriting",
+                        valueAsNumber: true,
+                        min: {
+                          value: 0.01,
+                          message: "Narx kamida 0.01 bolishi kerak",
+                        },
+                      })}
+                      type="number"
+                      step="0.01"
+                      className={`${
+                        darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                      } rounded-md w-[70px] border py-3 px-2 outline-none mb-2`}
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label
+                      className={`${
+                        darkMode ? "text-slate-300" : "text-slate-500"
+                      } font-medium font-spartan mb-1`}
+                    >
+                      Total
+                    </label>
+                    <input
+                      {...register(`items.${index}.total`)}
+                      readOnly
+                      className={`${
+                        darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                      } rounded-md w-[80px] border py-3 px-2 outline-none mb-2`}
+                    />
+                  </div>
+                  <button type="button" onClick={() => remove(index)}>
+                    <img
+                      src={clearImage}
+                      alt="Remove"
+                      className="w-6 h-6 transition duration-300 hover:fill-red-700"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -436,9 +664,21 @@ function InvoiceForm({ id }) {
             + Add Item
           </button>
 
-          <div className="flex justify-between mt-6">
-            <button type="button" onClick={() => reset()} className="btn">
-              {id ? "Cansel" : "Discard"}
+          <div className="flex justify-end gap-4 pt-6">
+            <button
+              type="button"
+              onClick={() => {
+                reset();
+                toast.success("O'zgartirishlar bekor qilindi!");
+                setTimeout(() => navigate("/"), 2000);
+              }}
+              className={`${
+                darkMode
+                  ? "bg-slate-800 hover:bg-slate-700"
+                  : "bg-slate-100 hover:bg-slate-300"
+              } text-slate-400 py-2 px-5 rounded-full font-bold font-spartan`}
+            >
+              {id ? "Cancel" : "Discard"}
             </button>
             {id ? (
               <button
@@ -446,7 +686,7 @@ function InvoiceForm({ id }) {
                 onClick={handleSubmit(onSubmit)}
                 className={`${
                   darkMode ? "bg-purple-800" : "bg-purple-600"
-                } text-slate-50 px-5 rounded-full hover:bg-purple-700`}
+                } text-slate-50 px-6 font-bold font-spartan rounded-full hover:bg-purple-700`}
               >
                 Save changes
               </button>

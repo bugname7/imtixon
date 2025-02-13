@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 
 const API_URL = "https://f8a3f2c439e7a64e.mokky.dev/invoices";
 
