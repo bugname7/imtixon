@@ -83,7 +83,17 @@ function InvoiceForm({ id }) {
       0
     );
   };
-
+  const handleHome = (navigate) => {
+    toast.info("Ma'lumotlar o‘zgarmadi", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+  
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
+  
   const onSubmit = async (data, status) => {
     try {
       const updatedData = { ...data, status, total: calculateTotal(data) };
@@ -148,7 +158,7 @@ function InvoiceForm({ id }) {
             })}
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
           />
 
           {errors.senderAddress?.street && (
@@ -157,101 +167,108 @@ function InvoiceForm({ id }) {
             </p>
           )}
 
-          <div className=" gap-4">
-            <label
-              htmlFor="city"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              City
-            </label>
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex gap-3">
+              <div>
+                <label
+                  htmlFor="city"
+                  className={`${
+                    darkMode ? "text-slate-300" : "text-slate-500"
+                  } font-medium font-spartan mb-1  `}
+                >
+                  City
+                </label>
 
-            <input
-              id="city"
-              {...register("senderAddress.city", {
-                required: "Shahar nomini kiriting",
-                minLength: {
-                  value: 2,
-                  message: "Kamida 2 ta harf bolishi kerak",
-                },
-                pattern: {
-                  value: /^[A-Za-z\s]+$/,
-                  message: "Faqat harflardan iborat bolishi kerak",
-                },
-              })}
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
+                <input
+                  id="city"
+                  {...register("senderAddress.city", {
+                    required: "Shahar nomini kiriting",
+                    minLength: {
+                      value: 2,
+                      message: "Kamida 2 ta harf bolishi kerak",
+                    },
+                    pattern: {
+                      value: /^[A-Za-z\s]+$/,
+                      message: "Faqat harflardan iborat bolishi kerak",
+                    },
+                  })}
+                  className={`${
+                    darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                  } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium  `}
+                />
 
-            {errors.senderAddress?.city && (
-              <p className="text-red-500 text-sm">
-                {errors.senderAddress.city.message}
-              </p>
-            )}
+                {errors.senderAddress?.city && (
+                  <p className="text-red-500 text-sm">
+                    {errors.senderAddress.city.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="pcode"
+                  className={`${
+                    darkMode ? "text-slate-300" : "text-slate-500"
+                  } font-medium font-spartan mb-1  `}
+                >
+                  Post Code
+                </label>
 
-            <label
-              htmlFor="pcode"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              Post Code
-            </label>
+                <input
+                  id="pcode"
+                  {...register("senderAddress.postCode", {
+                    required: "Pochta kodini kiriting",
+                    pattern: {
+                      value: /^[0-9]{5,6}$/,
+                      message: "Faqat 5 yoki 6 xonali raqam bolishi kerak",
+                    },
+                  })}
+                  className={`${
+                    darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                  } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+                />
 
-            <input
-              id="pcode"
-              {...register("senderAddress.postCode", {
-                required: "Pochta kodini kiriting",
-                pattern: {
-                  value: /^[0-9]{5,6}$/,
-                  message: "Faqat 5 yoki 6 xonali raqam bolishi kerak",
-                },
-              })}
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
+                {errors.senderAddress?.postCode && (
+                  <p className="text-red-500 text-sm">
+                    {errors.senderAddress.postCode.message}
+                  </p>
+                )}
+              </div>
+            </div>
 
-            {errors.senderAddress?.postCode && (
-              <p className="text-red-500 text-sm">
-                {errors.senderAddress.postCode.message}
-              </p>
-            )}
+            <div>
+              <label
+                htmlFor="country"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Country
+              </label>
 
-            <label
-              htmlFor="country"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              Country
-            </label>
+              <input
+                {...register("senderAddress.country", {
+                  required: "Mamlakat nomini kiriting",
+                  minLength: {
+                    value: 3,
+                    message: "Kamida 3 ta harf bolishi kerak",
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "Faqat harflardan iborat bolishi kerak",
+                  },
+                })}
+                id="country"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+              />
 
-            <input
-              {...register("senderAddress.country", {
-                required: "Mamlakat nomini kiriting",
-                minLength: {
-                  value: 3,
-                  message: "Kamida 3 ta harf bolishi kerak",
-                },
-                pattern: {
-                  value: /^[A-Za-z\s]+$/,
-                  message: "Faqat harflardan iborat bolishi kerak",
-                },
-              })}
-              id="country"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
-
-            {errors.senderAddress?.country && (
-              <p className="text-red-500 text-sm">
-                {errors.senderAddress.country.message}
-              </p>
-            )}
+              {errors.senderAddress?.country && (
+                <p className="text-red-500 text-sm">
+                  {errors.senderAddress.country.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <h2 className="text-lg font-bold mb-4 text-purple-500 mt-4">
@@ -281,7 +298,7 @@ function InvoiceForm({ id }) {
             id="clientname"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
           />
 
           {errors.clientName && (
@@ -309,7 +326,7 @@ function InvoiceForm({ id }) {
             type="email"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
           />
 
           {errors.clientEmail && (
@@ -336,7 +353,7 @@ function InvoiceForm({ id }) {
             id="streetAddres"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
           />
 
           {errors.clientAddress?.street && (
@@ -345,162 +362,179 @@ function InvoiceForm({ id }) {
             </p>
           )}
 
-          <div className=" gap-4">
-            <label
-              htmlFor="clientcity"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              City
-            </label>
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex gap-3">
+              <div>
+                <label
+                  htmlFor="clientcity"
+                  className={`${
+                    darkMode ? "text-slate-300" : "text-slate-500"
+                  } font-medium font-spartan mb-1  `}
+                >
+                  City
+                </label>
 
-            <input
-              {...register("clientAddress.city", {
-                required: "Shahar nomini kiriting",
-                minLength: {
-                  value: 3,
-                  message: "Kamida 3 ta harf bolishi kerak",
-                },
-                pattern: {
-                  value: /^[A-Za-z\s]+$/,
-                  message: "Faqat harflardan iborat bolishi kerak",
-                },
-              })}
-              id="clientcity"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
+                <input
+                  {...register("clientAddress.city", {
+                    required: "Shahar nomini kiriting",
+                    minLength: {
+                      value: 3,
+                      message: "Kamida 3 ta harf bolishi kerak",
+                    },
+                    pattern: {
+                      value: /^[A-Za-z\s]+$/,
+                      message: "Faqat harflardan iborat bolishi kerak",
+                    },
+                  })}
+                  id="clientcity"
+                  className={`${
+                    darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                  } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+                />
 
-            {errors.clientAddress?.city && (
-              <p className="text-red-500 text-sm">
-                {errors.clientAddress.city.message}
-              </p>
-            )}
+                {errors.clientAddress?.city && (
+                  <p className="text-red-500 text-sm">
+                    {errors.clientAddress.city.message}
+                  </p>
+                )}
+              </div>
 
-            <label
-              htmlFor="clientpostcode"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              Post Code
-            </label>
+              <div>
+                <label
+                  htmlFor="clientpostcode"
+                  className={`${
+                    darkMode ? "text-slate-300" : "text-slate-500"
+                  } font-medium font-spartan mb-1  `}
+                >
+                  Post Code
+                </label>
 
-            <input
-              {...register("clientAddress.postCode", {
-                required: "Pochta kodini kiriting",
-                pattern: {
-                  value: /^[0-9]{5,6}$/,
-                  message:
-                    "Faqat raqam bolishi va 5-6 ta belgidan iborat bolishi kerak",
-                },
-              })}
-              id="clientpostcode"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
+                <input
+                  {...register("clientAddress.postCode", {
+                    required: "Pochta kodini kiriting",
+                    pattern: {
+                      value: /^[0-9]{5,6}$/,
+                      message:
+                        "Faqat raqam bolishi va 5-6 ta belgidan iborat bolishi kerak",
+                    },
+                  })}
+                  id="clientpostcode"
+                  className={`${
+                    darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                  } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+                />
 
-            {errors.clientAddress?.postCode && (
-              <p className="text-red-500 text-sm">
-                {errors.clientAddress.postCode.message}
-              </p>
-            )}
+                {errors.clientAddress?.postCode && (
+                  <p className="text-red-500 text-sm">
+                    {errors.clientAddress.postCode.message}
+                  </p>
+                )}
+              </div>
+            </div>
 
-            <label
-              htmlFor="clientcountry"
-              className={`${
-                darkMode ? "text-slate-300" : "text-slate-500"
-              } font-medium font-spartan mb-1  `}
-            >
-              Country
-            </label>
+            <div>
+              <label
+                htmlFor="clientcountry"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Country
+              </label>
 
-            <input
-              {...register("clientAddress.country", {
-                required: "Mamlakat nomini kiriting",
-                minLength: {
-                  value: 3,
-                  message: "Kamida 3 ta harf bolishi kerak",
-                },
-                pattern: {
-                  value: /^[A-Za-z\s]+$/,
-                  message: "Faqat harflardan iborat blishi kerak",
-                },
-              })}
-              id="clientcountry"
-              className={`${
-                darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-              } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-            />
+              <input
+                {...register("clientAddress.country", {
+                  required: "Mamlakat nomini kiriting",
+                  minLength: {
+                    value: 3,
+                    message: "Kamida 3 ta harf bolishi kerak",
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]+$/,
+                    message: "Faqat harflardan iborat blishi kerak",
+                  },
+                })}
+                id="clientcountry"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+              />
 
-            {errors.clientAddress?.country && (
-              <p className="text-red-500 text-sm">
-                {errors.clientAddress.country.message}
-              </p>
-            )}
+              {errors.clientAddress?.country && (
+                <p className="text-red-500 text-sm">
+                  {errors.clientAddress.country.message}
+                </p>
+              )}
+            </div>
           </div>
 
-          <label
-            htmlFor="clientname"
-            className={`${
-              darkMode ? "text-slate-300" : "text-slate-500"
-            } font-medium font-spartan mb-1  `}
-          >
-            Issue Date
-          </label>
+          <div className="flex flex-col sm:flex-row justify-between">
+            <div>
+              <label
+                htmlFor="clientname"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Issue Date
+              </label>
 
-          <input
-            {...register("invoiceDate", {
-              required: "Sanani tanlang",
-              validate: (value) => {
-                const selectedDate = new Date(value);
-                const today = new Date();
-                if (selectedDate > today) {
-                  return "Kelajak sanani tanlash mumkin emas";
-                }
-                return true;
-              },
-            })}
-            type="date"
-            className={`${
-              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
-          />
+              <input
+                {...register("invoiceDate", {
+                  required: "Sanani tanlang",
+                  validate: (value) => {
+                    const selectedDate = new Date(value);
+                    const today = new Date();
+                    if (selectedDate > today) {
+                      return "Kelajak sanani tanlash mumkin emas";
+                    }
+                    return true;
+                  },
+                })}
+                type="date"
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
+              />
 
-          {errors.invoiceDate && (
-            <p className="text-red-500 text-sm">{errors.invoiceDate.message}</p>
-          )}
+              {errors.invoiceDate && (
+                <p className="text-red-500 text-sm">
+                  {errors.invoiceDate.message}
+                </p>
+              )}
+            </div>
 
-          <label
-            htmlFor="payment"
-            className={`${
-              darkMode ? "text-slate-300" : "text-slate-500"
-            } font-medium font-spartan mb-1  `}
-          >
-            Payment Terms
-          </label>
-          <select
-            id="payment"
-            {...register("paymentTerms", {
-              required: "Tolov shartlarini tanlang",
-            })}
-            className={`${
-              darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 appearance-none`}
-          >
-            <option value="Net 1 Days">Net 1 Days</option>
-            <option value="Net 7 Days">Net 7 Days</option>
-            <option value="Net 14 Days">Net 14 Days</option>
-            <option value="Net 30 Days">Net 30 Days</option>
-          </select>
-          {errors.paymentTerms && (
-            <p className="text-red-500 text-sm">
-              {errors.paymentTerms.message}
-            </p>
-          )}
+            <div>
+              <label
+                htmlFor="payment"
+                className={`${
+                  darkMode ? "text-slate-300" : "text-slate-500"
+                } font-medium font-spartan mb-1  `}
+              >
+                Payment Terms
+              </label>
+              <select
+                id="payment"
+                {...register("paymentTerms", {
+                  required: "Tolov shartlarini tanlang",
+                })}
+                className={`${
+                  darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
+                } rounded-md w-full border py-3 px-2 outline-none mb-2 appearance-none font-spartan font-medium `}
+              >
+                <option value="Net 1 Days">Net 1 Days</option>
+                <option value="Net 7 Days">Net 7 Days</option>
+                <option value="Net 14 Days">Net 14 Days</option>
+                <option value="Net 30 Days">Net 30 Days</option>
+              </select>
+              {errors.paymentTerms && (
+                <p className="text-red-500 text-sm">
+                  {errors.paymentTerms.message}
+                </p>
+              )}
+            </div>
+          </div>
+
           <label
             htmlFor="description"
             className={`${
@@ -521,7 +555,7 @@ function InvoiceForm({ id }) {
             id="description"
             className={`${
               darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-            } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+            } rounded-md w-full border py-3 px-2 outline-none mb-2 font-spartan font-medium  `}
           />
 
           {errors.description && (
@@ -533,8 +567,8 @@ function InvoiceForm({ id }) {
           </h2>
           {fields.map((item, index) => (
             <div key={item.id} className=" mb-4">
-              <div className={`flex gap-2 `}>
-                <div>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <div className="flex flex-col">
                   <label
                     htmlFor="itemname"
                     className={`${
@@ -556,17 +590,20 @@ function InvoiceForm({ id }) {
                     id={`itemname-${index}`}
                     className={`${
                       darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                    } rounded-md w-full border py-3 px-2 outline-none mb-2 `}
+                    } rounded-md w-auto sm:w-[300px] border py-3 px-2 outline-none mb-2 font-spartan font-medium `}
                   />
 
                   {errors.items?.[index]?.name && (
-                    <p className="text-red-500 text-sm">
+                    <p className="text-red-500 text-sm ">
                       {errors.items[index].name.message}
                     </p>
                   )}
                 </div>
-                <div key={item.id} className="flex gap-2 items-center">
-                  <div className="flex flex-col">
+                <div
+                  key={item.id}
+                  className="flex gap-2 items-center w-auto sm:w-full"
+                >
+                  <div className="flex flex-col ">
                     <label
                       htmlFor={`items.${index}.quantity`}
                       className={`${
@@ -581,13 +618,13 @@ function InvoiceForm({ id }) {
                         valueAsNumber: true,
                         min: {
                           value: 1,
-                          message: " Qiymat kamida 1 bolishi kerak",
+                          message: "Qiymat kamida 1 bo‘lishi kerak",
                         },
                       })}
                       type="number"
                       className={`${
                         darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                      } rounded-md w-[60px] border py-3 px-2 outline-none mb-2`}
+                      } rounded-md border py-3 px-2 outline-none mb-2 w-full sm:w-[60px] font-spartan font-medium `}
                     />
 
                     {errors.items?.[index]?.quantity && (
@@ -597,7 +634,7 @@ function InvoiceForm({ id }) {
                     )}
                   </div>
 
-                  <div className="flex flex-col">
+                  <div className="flex flex-col ">
                     <label
                       htmlFor={`items.${index}.price`}
                       className={`${
@@ -619,7 +656,7 @@ function InvoiceForm({ id }) {
                       step="0.01"
                       className={`${
                         darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                      } rounded-md w-[70px] border py-3 px-2 outline-none mb-2`}
+                      } rounded-md border py-3 px-2 font-spartan font-medium  outline-none mb-2 w-full sm:w-[60px]`}
                     />
                   </div>
 
@@ -636,14 +673,19 @@ function InvoiceForm({ id }) {
                       readOnly
                       className={`${
                         darkMode ? "bg-[rgba(37,41,69,1)] border-none" : ""
-                      } rounded-md w-[80px] border py-3 px-2 outline-none mb-2`}
+                      } rounded-md border py-3 px-2  text-slate-400 font-spartan font-medium teoutline-none mb-2 w-full sm:w-[60px]`}
                     />
                   </div>
-                  <button type="button" onClick={() => remove(index)}>
+
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className=" sm:w-7 w-12 items-center pt-4  flex justify-center"
+                  >
                     <img
                       src={clearImage}
                       alt="Remove"
-                      className="w-6 h-6 transition duration-300 hover:fill-red-700"
+                      className="h-6 transition duration-300 hover:fill-red-700"
                     />
                   </button>
                 </div>
@@ -664,53 +706,57 @@ function InvoiceForm({ id }) {
             + Add Item
           </button>
 
-          <div className="flex justify-end gap-4 pt-6">
-            <button
-              type="button"
-              onClick={() => {
-                reset();
-                toast.success("O'zgartirishlar bekor qilindi!");
-                setTimeout(() => navigate("/"), 2000);
-              }}
-              className={`${
-                darkMode
-                  ? "bg-slate-800 hover:bg-slate-700"
-                  : "bg-slate-100 hover:bg-slate-300"
-              } text-slate-400 py-2 px-5 rounded-full font-bold font-spartan`}
-            >
-              {id ? "Cancel" : "Discard"}
-            </button>
+          <div className="flex flex-col gap-4 pt-6 sm:flex-row sm:justify-end">
             {id ? (
-              <button
-                type="button"
-                onClick={handleSubmit(onSubmit)}
-                className={`${
-                  darkMode ? "bg-purple-800" : "bg-purple-600"
-                } text-slate-50 px-6 font-bold font-spartan rounded-full hover:bg-purple-700`}
-              >
-                Save changes
-              </button>
+              <>
+                {" "}
+                <div className="flex gap-12">
+                  <button
+                    type="button"
+                    onClick={() => handleHome(navigate)}
+                     
+                    className={`${
+                      darkMode
+                        ? "bg-slate-800 hover:bg-slate-700"
+                        : "bg-slate-100 hover:bg-slate-200"
+                    } font-spartan font-medium text-slate-500  py-3 px-5 rounded-full`}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSubmit(onSubmit)}
+                    className={`${
+                      darkMode ? "bg-purple-800" : "bg-purple-600"
+                    } text-slate-50  p-2 font-bold font-spartan rounded-full hover:bg-purple-700`}
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={handleSubmit((data) => onSubmit(data, "draft"))}
-                  className={`${
-                    darkMode ? "bg-slate-800" : "bg-slate-900"
-                  } font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full`}
-                >
-                  Save as Draft
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSubmit((data) => onSubmit(data, "pending"))}
-                  className={`${
-                    darkMode ? "bg-purple-800" : "bg-purple-600"
-                  } text-slate-50 px-5 rounded-full hover:bg-purple-700`}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Sending..." : "Save & Send"}
-                </button>
+                <div className="flex justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handleSubmit((data) => onSubmit(data, "draft"))}
+                    className={`${
+                      darkMode ? "bg-slate-800" : "bg-slate-900"
+                    } font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full`}
+                  >
+                    Save as Draft
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSubmit((data) => onSubmit(data, "pending"))}
+                    className={`${
+                      darkMode ? "bg-purple-800" : "bg-purple-600"
+                    } text-slate-50 px-5 rounded-full hover:bg-purple-700 font-medium font-spartan`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Sending..." : "Save & Send"}
+                  </button>
+                </div>
               </>
             )}
           </div>
