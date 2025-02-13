@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayouts from "./layouts/MainLayouts";
+import MainLayouts from "./layouts/MainLayouts.jsx";
 import { DarkModeProvider, useDarkMode } from "./context/DarkLightMode.jsx"; 
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";

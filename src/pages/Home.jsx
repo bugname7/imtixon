@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDarkMode } from "../context/DarkLightMode";
+import { useDarkMode } from "../context/DarkLightMode.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import new1 from "../assets/images/new1.svg";
 import invois from "../assets/images/invois.png";
