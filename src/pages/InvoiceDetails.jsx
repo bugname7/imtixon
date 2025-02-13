@@ -74,9 +74,8 @@ const InvoiceDetails = () => {
             darkMode ? "bg-[#1E2139] text-white" : "bg-white text-gray-800"
           }`}
         >
-          <div className="flex  sm:flex-row justify-between items-center  p-4 sm:p-6  ">
-          <div className="flex items-center gap-2 ">
-
+          <div className="flex flex-col md:flex-row justify-between items-center p-4 sm:p-6">
+          <div className="flex justify-between items-center gap-2 flex-row w-full md:w-auto">
           <p className="text-gray-500 font-medium inline-block">Status</p>
               <p
                 className={`inline-block px-4 py-2 text-sm font-bold rounded-lg ${
@@ -92,7 +91,7 @@ const InvoiceDetails = () => {
               </p>
             </div>
 
-            <div className="flex gap-1 sm:gap-4 mt-4 sm:mt-0">
+            <div className="flex gap-3 sm:gap-4 mt-4 sm:mt-0 ">
               <Link
                 to={`/invoice-edit/${invoice.id}`}
                 className="px-4     md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition"
@@ -115,53 +114,77 @@ const InvoiceDetails = () => {
           </div>
 
           <div className="p-4  md:p-6">
-            <h1 className="text-2xl font-bold mb-2">
-              <span className="text-gray-500">#</span>
-              {invoice.id}
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              {invoice.description}
-            </p>
+           <div className="flex justify-between mb-4">
+           <div>
+              <h1 className="text-2xl font-bold mb-2">
+                <span className="text-gray-500">#</span>
+                {invoice.id}
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                {invoice.description}
+              </p>
+            </div>
+            <div>
+              <p className="text-slate-400 text-end">{invoice.senderAddress.street}</p>
+              <p className="text-slate-400 text-end">{invoice.senderAddress.city}</p>
+              <p className="text-slate-400 text-end" >{invoice.senderAddress.postCode}</p>
+              <p className="text-slate-400 text-end">{invoice.senderAddress.country}</p>
+            </div>
+           </div>
 
-            <div className=" gap-6 mb-8">
-              <div>
-                <p className="text-gray-500 mb-1">Invoice Date</p>
-                <p className="font-bold">
-                  {new Date(invoice.invoiceDate).toLocaleDateString()}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 mb-1">Payment Due</p>
-                <p className="font-bold">
-                  {new Date(invoice.paymentDue).toLocaleDateString()}
-                </p>
-              </div>
-              <div>
-                <p className="text-red-500 mb-1">Bill To</p>
-                <p className="font-bold">{invoice.clientName}</p>
-                {invoice.clientAddress && (
-                  <>
-                    <p>{invoice.clientAddress.street}</p>
-                    <p>
-                      {invoice.clientAddress.city},{" "}
-                      {invoice.clientAddress.postCode}
+            <div className="flex flex-col md:flex-row justify-between w-full">
+              <div className="flex md:gap-48 gap-12 w-full">
+                <div className=" gap-6 mb-8">
+                  <div className="mb-6">
+                    <p className="text-gray-500 mb-1">Invoice Date</p>
+                    <p className="font-bold font-spartan text-xl">
+                      {new Date(invoice.invoiceDate).toLocaleDateString()}
                     </p>
-                    <p>{invoice.clientAddress.country}</p>
-                  </>
-                )}
+                  </div>
+                  <div>
+                    <p className="text-gray-500 mb-1">Payment Due</p>
+                    <p className="font-bold">
+                      {new Date(invoice.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-1 text-gray-500">Bill To</p>
+                  <h2 className="font-bold font-spartan text-xl">
+                    {invoice.clientName}
+                  </h2>
+                  {invoice.clientAddress && (
+                    <>
+                      <p className="font-medium font-spartan text-slate-400">
+                        {invoice.clientAddress.street}
+                      </p>
+                      <p className="font-medium font-spartan text-slate-400">
+                        {" "}
+                        {invoice.clientAddress.city},
+                      </p>
+                      <p className="font-medium font-spartan text-slate-400">
+                        {invoice.clientAddress.postCode}
+                      </p>
+                      <p className="font-medium font-spartan text-slate-400">
+                        {invoice.clientAddress.country}
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
               <div>
                 <p className="text-gray-500 mb-1">Sent to</p>
-                <p className="font-bold">{invoice.clientEmail}</p>
+                <h2 className="font-bold font-spartan text-xl">
+                  {invoice.clientEmail}
+                </h2>
               </div>
             </div>
-
             <div
               className={`rounded-lg overflow-hidden ${
                 darkMode ? "bg-gray-800" : "bg-gray-100"
               }`}
             >
-              <div className="hidden sm:flex justify-between p-4 bg-gray-300 dark:bg-gray-700 font-medium">
+              <div className=" sm:flex justify-between p-4 bg-gray-300 dark:bg-gray-700 font-medium">
                 <span>Item Name</span>
                 <div className="flex gap-6">
                   <span>QTY.</span>

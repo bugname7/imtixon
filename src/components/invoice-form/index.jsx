@@ -83,21 +83,16 @@ function InvoiceForm({ id }) {
       0
     );
   };
-  const handleHome = (navigate) => {
-    toast.info("Ma'lumotlar o‘zgarmadi", {
-      position: "top-right",
-      autoClose: 2000,
-    });
   
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
-  };
-  
+
   const onSubmit = async (data, status) => {
     try {
       const updatedData = { ...data, status, total: calculateTotal(data) };
 
+
+
+
+      
       if (id) {
         await editInvoice(id, data);
 
@@ -107,6 +102,7 @@ function InvoiceForm({ id }) {
       }
 
       reset();
+      navigate("/");
     } catch (error) {
       console.error("Failed to submit form:", error);
     }
@@ -648,7 +644,7 @@ function InvoiceForm({ id }) {
                         required: "Narxni kiriting",
                         valueAsNumber: true,
                         min: {
-                          value: 0.01,
+                          value: 1,
                           message: "Narx kamida 0.01 bolishi kerak",
                         },
                       })}
@@ -709,19 +705,18 @@ function InvoiceForm({ id }) {
           <div className="flex flex-col gap-4 pt-6 sm:flex-row sm:justify-end">
             {id ? (
               <>
-                {" "}
+                
                 <div className="flex gap-12">
                   <button
                     type="button"
-                    onClick={() => handleHome(navigate)}
-                     
+                   onClick={handleSubmit(onSubmit)}
                     className={`${
                       darkMode
                         ? "bg-slate-800 hover:bg-slate-700"
                         : "bg-slate-100 hover:bg-slate-200"
                     } font-spartan font-medium text-slate-500  py-3 px-5 rounded-full`}
                   >
-                    Cancel
+                    {id ? " Cancel" : "Discord"}
                   </button>
                   <button
                     type="button"
@@ -736,26 +731,31 @@ function InvoiceForm({ id }) {
               </>
             ) : (
               <>
-                <div className="flex justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={handleSubmit((data) => onSubmit(data, "draft"))}
-                    className={`${
-                      darkMode ? "bg-slate-800" : "bg-slate-900"
-                    } font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full`}
-                  >
-                    Save as Draft
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleSubmit((data) => onSubmit(data, "pending"))}
-                    className={`${
-                      darkMode ? "bg-purple-800" : "bg-purple-600"
-                    } text-slate-50 px-5 rounded-full hover:bg-purple-700 font-medium font-spartan`}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Sending..." : "Save & Send"}
-                  </button>
+                <div className="flex gap-x-48">
+               
+                  <div className="flex justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={handleSubmit((data) => onSubmit(data, "draft"))}
+                      className={`${
+                        darkMode ? "bg-slate-800" : "bg-slate-900"
+                      } font-spartan font-bold  py-3 text-slate-400 px-5 hover:bg-slate-700 rounded-full`}
+                    >
+                      Save as Draft
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSubmit((data) =>
+                        onSubmit(data, "pending")
+                      )}
+                      className={`${
+                        darkMode ? "bg-purple-800" : "bg-purple-600"
+                      } text-slate-50 px-5 rounded-full hover:bg-purple-700 font-medium font-spartan`}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Sending..." : "Save & Send"}
+                    </button>
+                  </div>
                 </div>
               </>
             )}
