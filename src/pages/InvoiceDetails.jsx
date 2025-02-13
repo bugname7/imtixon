@@ -74,7 +74,6 @@ const InvoiceDetails = () => {
             darkMode ? "bg-[#1E2139] text-white" : "bg-white text-gray-800"
           }`}
         >
-          {/* Status & Actions */}
           <div className="flex  sm:flex-row justify-between items-center  p-4 sm:p-6  ">
           <div className="flex items-center gap-2 ">
 
@@ -96,26 +95,25 @@ const InvoiceDetails = () => {
             <div className="flex gap-1 sm:gap-4 mt-4 sm:mt-0">
               <Link
                 to={`/invoice-edit/${invoice.id}`}
-                className="px-4 hidden md:block xs:block    md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                className="px-4     md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition"
               >
                 Edit
               </Link>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-4 hidden md:block xs:block    md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-red-600 text-white font-medium hover:bg-red-500 transition"
+                className="px-4     md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-red-600 text-white font-medium hover:bg-red-500 transition"
               >
                 Delete
               </button>
               <button
                 onClick={handleInvoiceStatusNew}
-                className="px-4 hidden md:block xs:block    md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition"
+                className="px-4     md:px-6 sm:px-3  py-2 md:py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition"
               >
                 Mark as Paid
               </button>
             </div>
           </div>
 
-          {/* Invoice Details */}
           <div className="p-4  md:p-6">
             <h1 className="text-2xl font-bold mb-2">
               <span className="text-gray-500">#</span>
@@ -158,7 +156,6 @@ const InvoiceDetails = () => {
               </div>
             </div>
 
-            {/* Items Table */}
             <div
               className={`rounded-lg overflow-hidden ${
                 darkMode ? "bg-gray-800" : "bg-gray-100"
@@ -189,7 +186,6 @@ const InvoiceDetails = () => {
               </div>
             </div>
 
-            {/* Grand Total */}
             <div
               className={`flex justify-between items-center py-6 px-4 mt-6 rounded-b-md ${
                 darkMode ? "bg-black" : "bg-gray-800"

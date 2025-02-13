@@ -15,7 +15,7 @@ function App() {
         <ToasterConfig /> 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/new-invoice" element={<NewInvoice />} />
+          <Route path="/newInvoice" element={<NewInvoice />} />
           <Route path="/invoice/:id" element={<InvoiceDetails />} />
           <Route path="/invoice-edit/:id" element={<InvoiceEdit />} />
         </Routes>
